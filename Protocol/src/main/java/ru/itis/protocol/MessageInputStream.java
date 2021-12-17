@@ -10,20 +10,16 @@ public class MessageInputStream extends InputStream {
     private InputStream inputStream;
     public byte firstByte;
     public byte secondByte;
-    private static boolean[] vector;
+    private boolean[] vector;
 
     public MessageInputStream(InputStream inputStream) {
-        this.firstByte = (byte) Math.floor(Constants.VERSION);
+        this.firstByte = (byte) Constants.VERSION;
         this.secondByte = (byte) (Constants.VERSION * 10 % 10);
         this.inputStream = inputStream;
-        this.vector = Constants.getVectorTypes();
+        vector = Constants.getVectorTypes();
 
     }
 
-    //первые 2 байта - цифра до точки в версии протокола и цифра после,
-    //чтобы проверить корректность сообщения
-    //3 байт - тип
-    //4 - длина тела
     public Message readMessage() throws IOException, IllegalProtocolVersionException, IllegalMessageTypeException {
         byte firstInputByte = (byte) inputStream.read();
         byte secondInputByte = (byte) inputStream.read();
@@ -34,10 +30,12 @@ public class MessageInputStream extends InputStream {
 
         byte type = (byte) inputStream.read();
 
-        boolean[] vector = Constants.getVectorTypes();
-
-        if(!vector[type]){
-            throw new IllegalMessageTypeException("");
+        try {
+            if (!vector[type]) {
+                throw new IllegalMessageTypeException("");
+            }
+        } catch (IndexOutOfBoundsException ex){
+            throw new IllegalMessageTypeException("", ex);
         }
 
         int length = inputStream.read()<<8 | inputStream.read();

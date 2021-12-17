@@ -28,12 +28,8 @@ import java.lang.reflect.Field;
  */
 
 public class Constants {
-    //*.* первые 2 байта сообщения для проверки его корректности
     public static final double VERSION = 0.1;
 
-    //типы сообщений(только они должны иметь тип byte,
-    // чтобы легко состать характеристический вектор и проверить,
-    // есть ли такой тип у полученного сообщения)
     public static final byte ERROR = 0;
     public static final byte READY_REQUEST = 1;
     public static final byte ALL_READY = 2;
