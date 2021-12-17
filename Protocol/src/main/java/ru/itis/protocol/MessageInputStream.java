@@ -10,11 +10,14 @@ public class MessageInputStream extends InputStream {
     private InputStream inputStream;
     public byte firstByte;
     public byte secondByte;
+    private static boolean[] vector;
 
     public MessageInputStream(InputStream inputStream) {
         this.firstByte = (byte) Math.floor(Constants.VERSION);
         this.secondByte = (byte) (Constants.VERSION * 10 % 10);
         this.inputStream = inputStream;
+        this.vector = Constants.getVectorTypes();
+
     }
 
     //первые 2 байта - цифра до точки в версии протокола и цифра после,
@@ -37,7 +40,8 @@ public class MessageInputStream extends InputStream {
             throw new IllegalMessageTypeException("");
         }
 
-        byte length = (byte) inputStream.read();
+        int length = inputStream.read()<<8 | inputStream.read();
+
         byte[] data = new byte[length];
 
         for(int i = 0; i < length; i++){

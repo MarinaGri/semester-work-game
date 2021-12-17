@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.itis</groupId>
-    <artifactId>protocol</artifactId>
+    <artifactId>server</artifactId>
     <version>0.1</version>
 
     <properties>
@@ -22,11 +22,10 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.8.6</version>
+            <groupId>ru.itis</groupId>
+            <artifactId>protocol</artifactId>
+            <version>0.1</version>
         </dependency>
     </dependencies>
 
