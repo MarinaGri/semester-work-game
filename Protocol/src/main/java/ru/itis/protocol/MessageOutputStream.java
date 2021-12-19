@@ -27,6 +27,9 @@ public class MessageOutputStream extends OutputStream {
         outputStream.write((byte)(length>>8));
         outputStream.write((byte)length);
 
+        for(int i = 0; i < length; i++){
+            outputStream.write(data[i]);
+        }
     }
 
     @Override

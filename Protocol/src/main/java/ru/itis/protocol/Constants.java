@@ -29,6 +29,7 @@ import java.lang.reflect.Field;
 
 public class Constants {
     public static final double VERSION = 0.1;
+    public static final int PORT = 11001;
 
     public static final byte ERROR = 0;
     public static final byte READY_REQUEST = 1;
@@ -36,7 +37,8 @@ public class Constants {
     public static final byte RESULTS = 3;
     public static final byte FINAL_GAME_OVER = 4;
     public static final byte GAME_OVER = 5;
-
+    public static final byte INVALID_NICKNAME = 6;
+    public static final byte SUCCESS_NICKNAME = 7;
 
     public static final byte ENTRANCE = 64;
     public static final byte TYPE_GAME = 65;

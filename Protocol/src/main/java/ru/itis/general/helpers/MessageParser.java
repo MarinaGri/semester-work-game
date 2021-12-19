@@ -1,6 +1,6 @@
 package ru.itis.general.helpers;
 
 public interface MessageParser<T> {
-    byte[] serializeMessage(T object);
-    T deserializeMessage(byte[] message);
+    public byte[] serializeMessage(T object);
+    public T deserializeMessage(byte[] message);
 }

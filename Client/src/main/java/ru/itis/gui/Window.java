@@ -1,5 +1,6 @@
 package ru.itis.gui;
 
+import lombok.Getter;
 import ru.itis.gui.components.MainJPanel;
 import ru.itis.gui.utils.ImageLoader;
 import ru.itis.gui.utils.Constants;
@@ -7,16 +8,21 @@ import ru.itis.gui.utils.Constants;
 import javax.swing.*;
 import java.awt.*;
 
+@Getter
 public class Window {
-    public void createGUI(){
-        JFrame mainFrame = new JFrame(Constants.GAME_NAME);
+    private JFrame mainFrame;
+
+    public Window() {
+        this.mainFrame = new JFrame(Constants.GAME_NAME);
 
         addComponents(mainFrame);
 
         mainFrame.setSize(Toolkit.getDefaultToolkit().getScreenSize());
 
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
+    public void createGUI(){
         mainFrame.setVisible(true);
     }
 
@@ -25,6 +31,6 @@ public class Window {
         MainJPanel mainPanel = new MainJPanel(loader.loadImg(Constants.MAIN_BACKGROUND));
         mainFrame.getContentPane().add(mainPanel);
         mainFrame.pack();
-        mainPanel.getPanel().getComponent(4).requestFocusInWindow();
+        mainPanel.getCenterJPanel().getComponent(4).requestFocusInWindow();
     }
 }

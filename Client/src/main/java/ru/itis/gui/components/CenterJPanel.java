@@ -10,15 +10,16 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 @Data
-public class InputNameJPanel extends JPanel {
+public class CenterJPanel extends JPanel {
+    private Dimension dimension;
+    private JButton button;
 
-    public InputNameJPanel() {
-        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+    public CenterJPanel() {
+        dimension = Toolkit.getDefaultToolkit().getScreenSize();
         Border lineBorder = new LineBorder(Color.BLACK, 3);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        Color color = new Color(220,193,138);
-        this.setBackground(color);
+        this.setBackground(Constants.COLOR);
 
         Font titleFont = new Font("font", Font.BOLD, dimension.height/20);
 
@@ -34,17 +35,22 @@ public class InputNameJPanel extends JPanel {
         Dimension tfSize = new Dimension(dimension.width/4, dimension.height/20);
         textField.setMaximumSize(tfSize);
         textField.setMinimumSize(tfSize);
-        textField.setBackground(color);
+        textField.setBackground(Constants.COLOR);
         textField.setBorder(lineBorder);
         textField.addKeyListener(new InputNameListener(textField));
         Font hintFont = new Font("font", Font.PLAIN, dimension.height/40);
         textField.setFont(hintFont);
         this.add(textField, Component.CENTER_ALIGNMENT);
 
-        this.add(Box.createVerticalStrut(dimension.height/10));
+        this.add(Box.createVerticalStrut(dimension.height/20));
+        Dimension size = new Dimension(dimension.width/10, dimension.height/20);
+        JLabel fake = new JLabel();
+        fake.setMinimumSize(size);
+        fake.setMaximumSize(size);
+        this.add(fake, Component.CENTER_ALIGNMENT);
 
-        JButton button = new JButton("Ввести");
-        button.setBackground(color);
+        button = new JButton("Ввести");
+        button.setBackground(Constants.COLOR);
         Dimension bSize = new Dimension(dimension.width/10, dimension.height/25);
         button.setFont(hintFont);
         button.setMinimumSize(bSize);
@@ -54,8 +60,21 @@ public class InputNameJPanel extends JPanel {
         this.add(button);
 
         this.setBorder(lineBorder);
-        Dimension thisSize = new Dimension(dimension.width/2, dimension.height/2);
+        Dimension thisSize = new Dimension(dimension.width/2, dimension.height - dimension.height/3);
         this.setMinimumSize(thisSize);
         this.setMaximumSize(thisSize);
+    }
+
+    public void showInvalidNameTip(){
+        JLabel jLabel = new JLabel(ru.itis.gui.utils.Constants.INVALID_NICKNAME);
+        Dimension size = new Dimension(dimension.width/10, dimension.height/20);
+        jLabel.setMinimumSize(size);
+        jLabel.setMaximumSize(size);
+        jLabel.setForeground(Color.RED);
+        this.remove(4);
+        this.add(jLabel, Component.RIGHT_ALIGNMENT, 4);
+
+        this.validate();
+        this.repaint();
     }
 }
