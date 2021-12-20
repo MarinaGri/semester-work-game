@@ -8,8 +8,13 @@ import lombok.Data;
 public class Player {
     protected Integer id;
     protected String nickname;
-    protected boolean status;
+    protected Boolean status;
 
     protected Integer money;
     protected Car car;
+    protected Room room;
+
+    public void exitRoom(){
+        room = null;
+    }
 }

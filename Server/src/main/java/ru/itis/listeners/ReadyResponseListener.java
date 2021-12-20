@@ -1,5 +1,6 @@
 package ru.itis.listeners;
 
+import ru.itis.general.entities.Player;
 import ru.itis.general.helpers.MessageParser;
 import ru.itis.general.helpers.TextParser;
 import ru.itis.protocol.Constants;
@@ -16,6 +17,9 @@ public class ReadyResponseListener extends AbstractServerEventListener{
 
     @Override
     public void handle(Connection connection, Message message) {
-        connection.getPlayer().setStatus(true);
+        Player player = connection.getPlayer();
+        player.setStatus(true);
+
+
     }
 }

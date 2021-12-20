@@ -39,12 +39,8 @@ public class Constants {
     public static final byte GAME_OVER = 5;
     public static final byte INVALID_NICKNAME = 6;
     public static final byte SUCCESS_NICKNAME = 7;
-<<<<<<< HEAD
     public static final byte SUCCESS = 8;
     public static final byte SUCCESS_JOIN_ROOM = 9;
-
-=======
->>>>>>> marina
 
     public static final byte ENTRANCE = 64;
     public static final byte TYPE_GAME = 65;

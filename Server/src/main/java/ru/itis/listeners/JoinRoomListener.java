@@ -1,13 +1,14 @@
 package ru.itis.listeners;
 
 import com.google.gson.JsonObject;
+import ru.itis.general.entities.Player;
+import ru.itis.general.entities.Room;
 import ru.itis.general.helpers.JsonParser;
 import ru.itis.general.helpers.MessageParser;
 import ru.itis.helpers.RoomParser;
 import ru.itis.protocol.Constants;
 import ru.itis.protocol.Message;
 import ru.itis.server.Connection;
-import ru.itis.server.Room;
 
 import java.util.List;
 
@@ -23,10 +24,16 @@ public class JoinRoomListener extends AbstractServerEventListener{
     public void handle(Connection connection, Message message) {
         boolean joined = false;
         Room joinedRoom = null;
+        Player player = connection.getPlayer();
 
         for (Room room: server.getAllRooms()){
             if (!joined && (room.getNumberOfPlayers() < Room.MAX_PLAYERS)){
-                room.addPlayer(connection.getPlayer());
+                room.addPlayer(player);
+                player.setRoom(room);
+
+                if (room.getNumberOfPlayers() == Room.MAX_PLAYERS){
+                    server.sendBroadCastMessage(room, new Message(Constants.READY_REQUEST));
+                }
 
                 joined = true;
                 joinedRoom = room;
@@ -34,10 +41,7 @@ public class JoinRoomListener extends AbstractServerEventListener{
         }
 
         if (!joined){
-            List<Room> rooms = server.getAllRooms();
-            joinedRoom = new Room(rooms.size() + 1);
-
-            rooms.add(joinedRoom);
+            joinedRoom = server.createRoom();
         }
 
         Message toClient = new Message(Constants.SUCCESS_JOIN_ROOM);

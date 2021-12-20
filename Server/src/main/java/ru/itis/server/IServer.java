@@ -1,5 +1,6 @@
 package ru.itis.server;
 
+import ru.itis.general.entities.Room;
 import ru.itis.listeners.IServerEventListener;
 import ru.itis.protocol.Message;
 
@@ -13,13 +14,15 @@ public interface IServer {
     public void registerListener(List<IServerEventListener> listeners);
 
     public void sendMessage(Connection connection, Message message);
-    public void sendBroadCastMessage(Message message);
+    public void sendBroadCastMessage(Room room, Message message);
 
     public void removeConnection(Connection connection);
     public Connection getConnectionById(Integer id);
     public List<Connection> getAllConnections();
 
     public List<Room> getAllRooms();
+    public Room createRoom();
+    public void removeRoom(Room room);
 
     public List<IServerEventListener> getListeners();
 }
