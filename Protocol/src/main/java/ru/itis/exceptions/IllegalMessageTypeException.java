@@ -1,6 +1,6 @@
 package ru.itis.exceptions;
 
-public class IllegalMessageTypeException extends Exception{
+public class IllegalMessageTypeException extends RuntimeException{
     public IllegalMessageTypeException(){
         super();
     }

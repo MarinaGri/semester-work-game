@@ -17,7 +17,6 @@ public class Message {
         this.type = type;
     }
 
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

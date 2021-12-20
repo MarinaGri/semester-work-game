@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-//import src.server.Room;
 
 @Data
 @AllArgsConstructor
@@ -15,7 +14,6 @@ public class Player {
     protected String nickname;
     protected boolean status;
 
-//    protected Room room;
     protected Integer money;
     protected Car car;
 }

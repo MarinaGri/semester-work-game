@@ -10,32 +10,39 @@ public class MessageInputStream extends InputStream {
     private InputStream inputStream;
     public byte firstByte;
     public byte secondByte;
-    private boolean[] vector;
+    private static boolean[] vector;
 
     public MessageInputStream(InputStream inputStream) {
-        this.firstByte = (byte) Constants.VERSION;
+        this.firstByte = (byte) Math.floor(Constants.VERSION);
         this.secondByte = (byte) (Constants.VERSION * 10 % 10);
         this.inputStream = inputStream;
-        vector = Constants.getVectorTypes();
-
+        this.vector = Constants.getVectorTypes();
     }
 
+    //первые 2 байта - цифра до точки в версии протокола и цифра после,
+    //чтобы проверить корректность сообщения
+    //3 байт - тип
+    //4 - длина тела
     public Message readMessage() throws IOException, IllegalProtocolVersionException, IllegalMessageTypeException {
-        byte firstInputByte = (byte) inputStream.read();
+        int firstByte = inputStream.read();
+
+        if (firstByte == -1){
+            return null;
+        }
+
+        byte firstInputByte = (byte) firstByte;
         byte secondInputByte = (byte) inputStream.read();
 
         if(firstInputByte != firstByte || secondInputByte != secondByte){
-            throw new IllegalProtocolVersionException("");
+            throw new IllegalProtocolVersionException("Error in version of protocol");
         }
 
         byte type = (byte) inputStream.read();
 
-        try {
-            if (!vector[type]) {
-                throw new IllegalMessageTypeException("");
-            }
-        } catch (IndexOutOfBoundsException ex){
-            throw new IllegalMessageTypeException("", ex);
+        boolean[] vector = Constants.getVectorTypes();
+
+        if(!vector[type]){
+            throw new IllegalMessageTypeException("Error in type of message");
         }
 
         int length = inputStream.read()<<8 | inputStream.read();
@@ -63,7 +70,7 @@ public class MessageInputStream extends InputStream {
     public long skip(long n) throws IOException {
         return inputStream.skip(n);
     }
-    
+
 
     @Override
     public int available() throws IOException {
