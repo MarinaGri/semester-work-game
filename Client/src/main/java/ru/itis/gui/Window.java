@@ -2,8 +2,8 @@ package ru.itis.gui;
 
 import lombok.Getter;
 import ru.itis.gui.components.MainJPanel;
-import ru.itis.gui.utils.ImageLoader;
-import ru.itis.gui.utils.Constants;
+import ru.itis.gui.utils.Loader;
+import ru.itis.gui.utils.GuiConst;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +13,7 @@ public class Window {
     private JFrame mainFrame;
 
     public Window() {
-        this.mainFrame = new JFrame(Constants.GAME_NAME);
+        this.mainFrame = new JFrame("Drivel");
 
         addComponents(mainFrame);
 
@@ -27,10 +27,9 @@ public class Window {
     }
 
     private void addComponents(JFrame mainFrame) {
-        ImageLoader loader = new ImageLoader();
-        MainJPanel mainPanel = new MainJPanel(loader.loadImg(Constants.MAIN_BACKGROUND));
+        MainJPanel mainPanel = new MainJPanel(Loader.loadImg(GuiConst.MAIN_BACKGROUND));
         mainFrame.getContentPane().add(mainPanel);
         mainFrame.pack();
-        mainPanel.getCenterJPanel().getComponent(4).requestFocusInWindow();
+        mainPanel.getInputNameJPanel().getComponent(4).requestFocusInWindow();
     }
 }

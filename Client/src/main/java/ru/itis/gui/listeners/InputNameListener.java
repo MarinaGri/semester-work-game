@@ -1,6 +1,7 @@
 package ru.itis.gui.listeners;
 
 import ru.itis.connection.Connection;
+import ru.itis.general.helpers.MessageParser;
 import ru.itis.general.helpers.TextParser;
 import ru.itis.gui.utils.ConnectionWrapper;
 import ru.itis.protocol.Constants;
@@ -46,7 +47,7 @@ public class InputNameListener implements ActionListener, KeyListener {
 
     private void sentName(String name){
         Connection connection = ConnectionWrapper.getConnection();
-        TextParser textParser = new TextParser();
+        MessageParser<String> textParser = new TextParser();
         Message message = new Message(Constants.ENTRANCE, textParser.serializeMessage(name));
         try {
             connection.sendMessage(message);

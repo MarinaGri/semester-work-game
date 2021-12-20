@@ -2,7 +2,8 @@ package ru.itis.gui.components;
 
 import lombok.Data;
 import ru.itis.gui.listeners.InputNameListener;
-import ru.itis.gui.utils.Constants;
+import ru.itis.gui.utils.GuiConst;
+import ru.itis.gui.utils.Loader;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -10,21 +11,21 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 @Data
-public class CenterJPanel extends JPanel {
+public class InputNameJPanel extends JPanel {
     private Dimension dimension;
     private JButton button;
 
-    public CenterJPanel() {
+    public InputNameJPanel() {
         dimension = Toolkit.getDefaultToolkit().getScreenSize();
         Border lineBorder = new LineBorder(Color.BLACK, 3);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        this.setBackground(Constants.COLOR);
+        this.setBackground(GuiConst.COLOR);
 
-        Font titleFont = new Font("font", Font.BOLD, dimension.height/20);
+        Font titleFont = Loader.loadFont("name.otf").deriveFont(dimension.height/10f);
 
         this.add(Box.createVerticalStrut(dimension.height/20));
-        JLabel label = new JLabel(Constants.GAME_NAME);
+        JLabel label = new JLabel("Drivel");
         label.setFont(titleFont);
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(label);
@@ -35,10 +36,10 @@ public class CenterJPanel extends JPanel {
         Dimension tfSize = new Dimension(dimension.width/4, dimension.height/20);
         textField.setMaximumSize(tfSize);
         textField.setMinimumSize(tfSize);
-        textField.setBackground(Constants.COLOR);
+        textField.setBackground(GuiConst.COLOR);
         textField.setBorder(lineBorder);
         textField.addKeyListener(new InputNameListener(textField));
-        Font hintFont = new Font("font", Font.PLAIN, dimension.height/40);
+        Font hintFont = Loader.loadFont("default.otf").deriveFont(dimension.height/30f);
         textField.setFont(hintFont);
         this.add(textField, Component.CENTER_ALIGNMENT);
 
@@ -50,7 +51,7 @@ public class CenterJPanel extends JPanel {
         this.add(fake, Component.CENTER_ALIGNMENT);
 
         button = new JButton("Ввести");
-        button.setBackground(Constants.COLOR);
+        button.setBackground(GuiConst.COLOR);
         Dimension bSize = new Dimension(dimension.width/10, dimension.height/25);
         button.setFont(hintFont);
         button.setMinimumSize(bSize);
@@ -66,7 +67,7 @@ public class CenterJPanel extends JPanel {
     }
 
     public void showInvalidNameTip(){
-        JLabel jLabel = new JLabel(ru.itis.gui.utils.Constants.INVALID_NICKNAME);
+        JLabel jLabel = new JLabel(GuiConst.INVALID_NICKNAME);
         Dimension size = new Dimension(dimension.width/10, dimension.height/20);
         jLabel.setMinimumSize(size);
         jLabel.setMaximumSize(size);

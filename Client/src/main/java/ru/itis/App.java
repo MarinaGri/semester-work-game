@@ -8,20 +8,12 @@ import ru.itis.gui.utils.ConnectionWrapper;
 
 public class App {
     public static void main(String[] args) {
-        try {
-            Connection connection = ConnectionWrapper.getConnection();
-            Window window = new Window();
-            GuiManager guiManager = new GuiManager(window);
-            MessageListener messageListener = new MessageListener(connection, guiManager);
-            Thread game = new Thread(messageListener);
-            game.start();
-            window.createGUI();
-
-            Thread.sleep(2000);
-            guiManager.showEnterRoomButton();
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Connection connection = ConnectionWrapper.getConnection();
+        Window window = new Window();
+        GuiManager guiManager = new GuiManager(window);
+        MessageListener messageListener = new MessageListener(connection, guiManager);
+        Thread game = new Thread(messageListener);
+        game.start();
+        window.createGUI();
     }
 }
