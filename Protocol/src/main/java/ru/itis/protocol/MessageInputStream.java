@@ -70,7 +70,7 @@ public class MessageInputStream extends InputStream {
     public long skip(long n) throws IOException {
         return inputStream.skip(n);
     }
-    
+
 
     @Override
     public int available() throws IOException {

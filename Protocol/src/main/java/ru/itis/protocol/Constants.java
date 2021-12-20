@@ -28,12 +28,9 @@ import java.lang.reflect.Field;
  */
 
 public class Constants {
-    //*.* первые 2 байта сообщения для проверки его корректности
     public static final double VERSION = 0.1;
+    public static final int PORT = 11001;
 
-    //типы сообщений(только они должны иметь тип byte,
-    // чтобы легко состать характеристический вектор и проверить,
-    // есть ли такой тип у полученного сообщения)
     public static final byte ERROR = 0;
     public static final byte READY_REQUEST = 1;
     public static final byte ALL_READY = 2;
@@ -42,9 +39,12 @@ public class Constants {
     public static final byte GAME_OVER = 5;
     public static final byte INVALID_NICKNAME = 6;
     public static final byte SUCCESS_NICKNAME = 7;
+<<<<<<< HEAD
     public static final byte SUCCESS = 8;
     public static final byte SUCCESS_JOIN_ROOM = 9;
 
+=======
+>>>>>>> marina
 
     public static final byte ENTRANCE = 64;
     public static final byte TYPE_GAME = 65;
