@@ -13,9 +13,8 @@ public class ServerApp {
         IServer server = new Server(11001);
         try {
             server.start();
-        }catch (ServerException e){
+        }catch (ServerException e) {
             throw new IllegalStateException(e);
         }
-        server.registerListener(new EntranceServerListener());
     }
 }

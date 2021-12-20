@@ -29,7 +29,7 @@ public class Server implements IServer{
 
     public Server(int port){
         this.port = port;
-        started = true;
+        started = false;
         listeners = new ArrayList<>();
         connections = new ArrayList<>();
         rooms = new ArrayList<>();

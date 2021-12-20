@@ -38,7 +38,8 @@ public class EntranceServerListener extends AbstractServerEventListener{
 
     private boolean isCorrect(String name){
         for (Connection connection: server.getAllConnections()){
-            if (connection.getPlayer().getNickname().equals(name)){
+            Player player = connection.getPlayer();
+            if (player != null && player.getNickname().equals(name)){
                 return false;
             }
         }
