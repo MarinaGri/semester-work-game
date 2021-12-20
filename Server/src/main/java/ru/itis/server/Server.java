@@ -1,6 +1,5 @@
 package ru.itis.server;
 
-import ru.itis.exceptions.ConnectionIsBrokenException;
 import ru.itis.exceptions.IllegalMessageTypeException;
 import ru.itis.exceptions.IllegalProtocolVersionException;
 import ru.itis.exceptions.ServerAlreadyStartException;
@@ -55,28 +54,7 @@ public class Server implements IServer{
             Connection connection = new Connection(this, socket, this.connections.size() + 1);
             this.connections.add(connection);
 
-            Message message;
-            try {
-                message = connection.getInputStream().readMessage();
-            }catch (IllegalProtocolVersionException e){
-                message = new Message(Constants.ERROR, "Error in version of protocol".getBytes());
-                connection.getOutputStream().writeMessage(message);
-            }catch (IllegalMessageTypeException e){
-                message = new Message(Constants.ERROR, "Error in type of message".getBytes());
-                connection.getOutputStream().writeMessage(message);
-            }
-
-            System.out.println("New message:");
-            System.out.println(message.toString());
-
-            for(IServerEventListener listener : listeners){
-                if(message.getType() == listener.getType()){
-                    // One by one! Another left listeners will wait current
-                    // Another thread could be created here or before for every Listener
-                    listener.setParameters(connection.getId(), message);
-                    new Thread(listener).start();
-                }
-            }
+            new Thread(connection).start();
         }
         catch(IOException ex){
             throw new ServerException("Problem with handling connection.", ex);
@@ -84,7 +62,7 @@ public class Server implements IServer{
     }
 
     @Override
-    public void registerListener(IServerEventListener listener) {
+    public void registerListener(IServerEventListener listener){
         if (started){
             throw new ServerAlreadyStartException("Server has been started already. Can't register listener.");
         }
@@ -106,15 +84,21 @@ public class Server implements IServer{
     }
 
     @Override
-    public void sendMessage(int connectionId, Message message) throws ConnectionIsBrokenException {
+    public void sendMessage(Connection connection, Message message){
+        try {
+            connection.getOutputStream().writeMessage(message);
+        }catch (IOException e){
+            removeConnection(connection);
+        }
     }
 
     @Override
-    public void sendBroadCastMessage(Message message) throws ConnectionIsBrokenException {
+    public void sendBroadCastMessage(Message message){
 
     }
 
-    public static Connection getConnectionById(Integer id){
+    @Override
+    public Connection getConnectionById(Integer id){
         for (Connection connection: connections){
             if (connection.getId() == id){
                 return connection;
@@ -122,5 +106,29 @@ public class Server implements IServer{
         }
 
         return null;
+    }
+
+    @Override
+    public List<Connection> getAllConnections(){
+        return connections;
+    }
+
+    @Override
+    public void removeConnection(Connection connection) {
+        for (Connection conn: connections){
+            if (conn.getId() == connection.getId()){
+                connections.remove(conn);
+            }
+        }
+    }
+
+    @Override
+    public List<Room> getAllRooms() {
+        return rooms;
+    }
+
+    @Override
+    public List<IServerEventListener> getListeners() {
+        return listeners;
     }
 }

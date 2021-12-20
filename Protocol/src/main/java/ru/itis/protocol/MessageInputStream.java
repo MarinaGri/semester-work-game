@@ -24,11 +24,17 @@ public class MessageInputStream extends InputStream {
     //3 байт - тип
     //4 - длина тела
     public Message readMessage() throws IOException, IllegalProtocolVersionException, IllegalMessageTypeException {
-        byte firstInputByte = (byte) inputStream.read();
+        int firstByte = inputStream.read();
+
+        if (firstByte == -1){
+            return null;
+        }
+
+        byte firstInputByte = (byte) firstByte;
         byte secondInputByte = (byte) inputStream.read();
 
         if(firstInputByte != firstByte || secondInputByte != secondByte){
-            throw new IllegalProtocolVersionException("");
+            throw new IllegalProtocolVersionException("Error in version of protocol");
         }
 
         byte type = (byte) inputStream.read();
@@ -36,7 +42,7 @@ public class MessageInputStream extends InputStream {
         boolean[] vector = Constants.getVectorTypes();
 
         if(!vector[type]){
-            throw new IllegalMessageTypeException("");
+            throw new IllegalMessageTypeException("Error in type of message");
         }
 
         int length = inputStream.read()<<8 | inputStream.read();

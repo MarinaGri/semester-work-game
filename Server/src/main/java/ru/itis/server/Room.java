@@ -1,17 +1,34 @@
 package ru.itis.server;
 
+import ru.itis.general.entities.Player;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Room{
+public class Room {
+    protected int id;
 
-    protected static final int MAX_PLAYERS = 6;
+    public static final int MAX_PLAYERS = 6;
     protected boolean started;
 
-    protected List<Connection> connections;
+    protected List<Player> players;
 
-    public Room(){
+    public Room(int id){
+        this.id = id;
         started = true;
-        connections = new ArrayList<>();
+        players = new ArrayList<>();
+    }
+
+    public boolean addPlayer(Player player){
+        if (players.size() < MAX_PLAYERS){
+            players.add(player);
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public int getNumberOfPlayers(){
+        return players.size();
     }
 }

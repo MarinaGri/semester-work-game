@@ -5,7 +5,7 @@ import ru.itis.general.helpers.MessageParser;
 import ru.itis.general.helpers.TextParser;
 import ru.itis.protocol.Constants;
 import ru.itis.protocol.Message;
-import ru.itis.server.Server;
+import ru.itis.server.Connection;
 
 public class EntranceServerListener extends AbstractServerEventListener{
     private MessageParser<String> messageParser;
@@ -16,23 +16,33 @@ public class EntranceServerListener extends AbstractServerEventListener{
     }
 
     @Override
-    public void setParameters(int id, Message message) {
-        connectionId = id;
-        this.message = message;
+    public void handle(Connection connection, Message message){
+        String name = messageParser.deserializeMessage(message.getData());
+
+        Message newMessage;
+        if (isCorrect(name)) {
+            Player player = Player.builder()
+                    .id(connection.getId())
+                    .nickname(name)
+                    .build();
+
+            connection.setPlayer(player);
+
+            newMessage = new Message(Constants.SUCCESS_NICKNAME);
+            server.sendMessage(connection, newMessage);
+        } else {
+            newMessage = new Message(Constants.INVALID_NICKNAME);
+            server.sendMessage(connection, newMessage);
+        }
     }
 
-    //    @Override
-//    public void handle(int connectionId, Message message) {
-//
-//    }
+    private boolean isCorrect(String name){
+        for (Connection connection: server.getAllConnections()){
+            if (connection.getPlayer().getNickname().equals(name)){
+                return false;
+            }
+        }
 
-    @Override
-    public void run() {
-        Player player = Player.builder()
-                .id(connectionId)
-                .nickname(messageParser.deserializeMessage(message.getData()))
-                .build();
-
-        Server.getConnectionById(connectionId).setPlayer(player);
+        return true;
     }
 }

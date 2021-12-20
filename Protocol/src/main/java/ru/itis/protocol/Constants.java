@@ -40,11 +40,16 @@ public class Constants {
     public static final byte RESULTS = 3;
     public static final byte FINAL_GAME_OVER = 4;
     public static final byte GAME_OVER = 5;
+    public static final byte INVALID_NICKNAME = 6;
+    public static final byte SUCCESS_NICKNAME = 7;
+    public static final byte SUCCESS = 8;
+    public static final byte SUCCESS_JOIN_ROOM = 9;
 
 
     public static final byte ENTRANCE = 64;
     public static final byte TYPE_GAME = 65;
-    public static final byte CREATE_ROOM = 66;
+    //public static final byte CREATE_ROOM = 66;
+    public static final byte JOIN_ROOM = 66;
     public static final byte READY_RESPONSE = 67;
     public static final byte EXIT_ROOM = 68;
     public static final byte EXIT = 69;

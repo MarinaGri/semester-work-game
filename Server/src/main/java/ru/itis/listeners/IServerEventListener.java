@@ -1,10 +1,10 @@
 package ru.itis.listeners;
 
 import ru.itis.protocol.Message;
+import ru.itis.server.Connection;
 import ru.itis.server.IServer;
-public interface IServerEventListener extends Runnable {
+public interface IServerEventListener{
     public void init(IServer server);
-    //public void handle(int connectionId, Message message);
+    public void handle(Connection connection, Message message);
     public byte getType();
-    public void setParameters(int id, Message message);
 }
