@@ -23,12 +23,14 @@ public class Connection {
             this.socket = new Socket(address, port);
             outputStream = new MessageOutputStream(socket.getOutputStream());
             inputStream = new MessageInputStream(socket.getInputStream());
+            player = new Player();
         } catch (IOException ex) {
             throw new ConnectionLostException("", ex);
         }
     }
 
     public void sendMessage(Message message) throws IOException {
+        if(outputStream == null) throw new IOException();
         outputStream.writeMessage(message);
     }
 

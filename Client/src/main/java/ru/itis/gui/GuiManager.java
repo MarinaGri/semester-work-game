@@ -1,29 +1,38 @@
 package ru.itis.gui;
 
+import ru.itis.general.entities.Player;
 import ru.itis.gui.components.MainJPanel;
 
-import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class GuiManager {
     private final Window window;
-    private Dimension dimension;
+    private MainJPanel mainJPanel;
 
     public GuiManager(Window window) {
         this.window = window;
-        this.dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        this.mainJPanel = (MainJPanel) window.getMainFrame().getContentPane().getComponent(0);
     }
 
     public void showInvalidNameTip(){
-        MainJPanel mainJPanel = (MainJPanel) window.getMainFrame().getContentPane().getComponent(0);
-        mainJPanel.getCenterJPanel().showInvalidNameTip();
+        mainJPanel.getInputNameJPanel().showInvalidNameTip();
     }
 
     public void showEnterRoomButton(){
-        MainJPanel mainJPanel = (MainJPanel) window.getMainFrame().getContentPane().getComponent(0);
-        mainJPanel.remove(1);
-        mainJPanel.add(mainJPanel.getRoomJPanel(), 1);
-        mainJPanel.validate();
-        mainJPanel.repaint();
+        mainJPanel.showEnterRoomButton();
     }
+
+    public void changePlayersInRoom(List<Player> players){
+        mainJPanel.getRoomJPanel().changePlayers(players);
+    }
+
+    public void addReadyButton(){
+        mainJPanel.getRoomJPanel().addReadyButton();
+    }
+
+    public void showCarShop(Player player){
+        mainJPanel.showCarShop(player);
+    }
+
 }

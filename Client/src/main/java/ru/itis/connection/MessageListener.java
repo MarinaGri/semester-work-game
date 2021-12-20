@@ -2,6 +2,8 @@ package ru.itis.connection;
 
 import ru.itis.exceptions.IllegalMessageTypeException;
 import ru.itis.exceptions.IllegalProtocolVersionException;
+import ru.itis.general.helpers.MessageParser;
+import ru.itis.general.helpers.TextParser;
 import ru.itis.gui.GuiManager;
 import ru.itis.protocol.Constants;
 import ru.itis.protocol.Message;
@@ -31,9 +33,16 @@ public class MessageListener implements Runnable{
                         break;
                     }
                     case Constants.SUCCESS_NICKNAME:{
-
+                        MessageParser<String> parser = new TextParser();
+        //                connection.getPlayer().setNickname(parser.deserializeMessage(message.getData()));
+                        guiManager.showEnterRoomButton();
                         break;
                     }
+                    case Constants.READY_REQUEST:{
+                        guiManager.addReadyButton();
+                        break;
+                    }
+
                 }
             }
         }catch (IllegalMessageTypeException | IOException | IllegalProtocolVersionException e) {
