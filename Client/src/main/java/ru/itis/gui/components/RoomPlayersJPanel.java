@@ -23,24 +23,28 @@ public class RoomPlayersJPanel extends JPanel {
 
 
         this.setLayout(new GridLayout(2, 3, dimension.width/20, dimension.height/20));
-        for (Player player: players){
-            JPanel panel = new JPanel();
-            panel.setLayout(new BorderLayout());
-            panel.setBackground(GuiConst.COLOR);
-            panel.setBorder(lineBorder);
+        if(players != null) {
+            for (Player player : players) {
+                JPanel panel = new JPanel();
+                panel.setLayout(new BorderLayout());
+                panel.setBackground(GuiConst.COLOR);
+                panel.setBorder(lineBorder);
 
-            JLabel nick = new JLabel(player.getNickname());
-            nick.setFont(font.deriveFont(dimension.height/30f));
-            panel.add(nick, BorderLayout.CENTER);
+                JLabel nick = new JLabel(player.getNickname());
+                nick.setFont(font.deriveFont(dimension.height / 30f));
+                panel.add(nick, BorderLayout.CENTER);
 
-            JLabel status = new JLabel(player.getStatus()? "READY!": "WAITING..");
-            status.setFont(font.deriveFont(dimension.height/35f));
-            panel.add(status, BorderLayout.PAGE_END);
+                JLabel status = new JLabel(player.getStatus() ? "READY!" : "WAITING..");
+                status.setFont(font.deriveFont(dimension.height / 35f));
+                panel.add(status, BorderLayout.PAGE_END);
 
-            this.add(panel);
+                this.add(panel);
+            }
         }
 
-        for (int i = 0; i < 6-players.size(); i++){
+        int size = players == null? 0: players.size();
+
+        for (int i = 0; i < 6-size; i++){
             JPanel panel = new JPanel();
             panel.setBackground(GuiConst.COLOR);
             panel.setBorder(lineBorder);

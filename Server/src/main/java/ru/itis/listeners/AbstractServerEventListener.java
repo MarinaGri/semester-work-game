@@ -1,8 +1,11 @@
 package ru.itis.listeners;
 
+import ru.itis.protocol.Constants;
 import ru.itis.protocol.Message;
 import ru.itis.server.Connection;
 import ru.itis.server.IServer;
+
+import static ru.itis.protocol.Constants.*;
 
 public abstract class AbstractServerEventListener implements IServerEventListener{
     protected boolean init;
@@ -21,8 +24,10 @@ public abstract class AbstractServerEventListener implements IServerEventListene
 
     public static IServerEventListener getEventListener(byte type){
         switch (type){
-            case 64:
+            case ENTRANCE:
                 return new EntranceServerListener();
+            case JOIN_ROOM:
+                return new JoinRoomListener();
             default: throw new IllegalArgumentException("Illegal type of listener");
         }
     }
