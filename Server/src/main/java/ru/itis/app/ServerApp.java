@@ -1,6 +1,5 @@
 package ru.itis.app;
 
-import ru.itis.helpers.RoomParser;
 import ru.itis.listeners.EntranceServerListener;
 import ru.itis.server.Connection;
 import ru.itis.server.IServer;

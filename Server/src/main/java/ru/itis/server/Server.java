@@ -14,6 +14,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.rmi.ServerException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Server implements IServer{
@@ -123,9 +124,11 @@ public class Server implements IServer{
 
     @Override
     public void removeConnection(Connection connection) {
-        for (Connection conn: connections){
-            if (conn.getId() == connection.getId()){
-                connections.remove(conn);
+        Iterator<Connection> iterator = connections.iterator();
+
+        while (iterator.hasNext()){
+            if (connection.getId() == iterator.next().getId()){
+                iterator.remove();
             }
         }
     }
