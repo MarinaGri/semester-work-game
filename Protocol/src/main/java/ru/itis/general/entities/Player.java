@@ -14,6 +14,7 @@ public class Player {
     protected String nickname;
     protected Boolean status;
 
+    protected Integer time;
     protected Integer money;
     protected Car car;
     protected Room room;

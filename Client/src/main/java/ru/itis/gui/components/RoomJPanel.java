@@ -44,8 +44,10 @@ public class RoomJPanel extends JPanel {
         this.removeAll();
         this.add(new RoomPlayersJPanel(playerList), BorderLayout.CENTER);
 
-        for(Player player: playerList){
-            System.out.println(player);
+        if(players != null) {
+            for (Player player : playerList) {
+                System.out.println(player);
+            }
         }
         JButton button = new JButton("Выйти из комнаты");
         button.addActionListener(e -> {
@@ -127,7 +129,12 @@ public class RoomJPanel extends JPanel {
         JButton button = new JButton("Присоединиться к комнате");
         button.setFont(font);
         button.addActionListener(e -> {
-//отправить запрос и ждать ответ
+            Connection connection = ConnectionWrapper.getConnection();
+            try {
+                connection.sendMessage(new Message(Constants.JOIN_ROOM));
+            } catch (IOException ioException) {
+                JOptionPane.showInternalMessageDialog(null, "Не удалось присоединиться к комнате");
+            }
         });
 
         bottom = new JPanel();
