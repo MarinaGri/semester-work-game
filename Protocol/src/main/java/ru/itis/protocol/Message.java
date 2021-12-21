@@ -15,6 +15,7 @@ public class Message {
 
     public Message(byte type){
         this.type = type;
+        data = new byte[0];
     }
 
     @Override

@@ -40,22 +40,23 @@ public class Connection implements Runnable{
 
     @Override
     public void run() {
-        try {
-            while (inputStream.readMessage() != null) {
-                Message message;
-                try {
-                    message = inputStream.readMessage();
-                } catch (IllegalProtocolVersionException e) {
-                    message = new Message(Constants.ERROR, e.getMessage().getBytes());
-                    outputStream.writeMessage(message);
-                } catch (IllegalMessageTypeException e) {
-                    message = new Message(Constants.ERROR, e.getMessage().getBytes());
-                    outputStream.writeMessage(message);
-                }
+        Message message;
 
-                IServerEventListener listener = AbstractServerEventListener.getEventListener(
-                        message.getType());
-                listener.handle(this, message);
+        try {
+            try {
+                while ((message = inputStream.readMessage()) != null) {
+                    IServerEventListener listener = AbstractServerEventListener.getEventListener(
+                            message.getType());
+                    listener.init(server);
+
+                    listener.handle(this, message);
+                }
+            } catch (IllegalProtocolVersionException e) {
+                message = new Message(Constants.ERROR, e.getMessage().getBytes());
+                outputStream.writeMessage(message);
+            } catch (IllegalMessageTypeException e) {
+                message = new Message(Constants.ERROR, e.getMessage().getBytes());
+                outputStream.writeMessage(message);
             }
         }catch (IOException e){
             server.removeConnection(this);

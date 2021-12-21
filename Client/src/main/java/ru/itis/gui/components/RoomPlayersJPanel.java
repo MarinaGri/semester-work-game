@@ -33,7 +33,7 @@ public class RoomPlayersJPanel extends JPanel {
             nick.setFont(font.deriveFont(dimension.height/30f));
             panel.add(nick, BorderLayout.CENTER);
 
-            JLabel status = new JLabel(player.isStatus()? "READY!": "WAITING..");
+            JLabel status = new JLabel(player.getStatus()? "READY!": "WAITING..");
             status.setFont(font.deriveFont(dimension.height/35f));
             panel.add(status, BorderLayout.PAGE_END);
 

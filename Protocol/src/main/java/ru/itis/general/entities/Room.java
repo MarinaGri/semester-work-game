@@ -1,20 +1,15 @@
-package ru.itis.server;
-
-import ru.itis.general.entities.Player;
+package ru.itis.general.entities;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Room {
-    protected int id;
-
     public static final int MAX_PLAYERS = 6;
     protected boolean started;
 
     protected List<Player> players;
 
-    public Room(int id){
-        this.id = id;
+    public Room(){
         started = true;
         players = new ArrayList<>();
     }
@@ -28,7 +23,25 @@ public class Room {
         }
     }
 
+    public void deletePlayer(Player player){
+        players.remove(player);
+    }
+
     public int getNumberOfPlayers(){
         return players.size();
+    }
+
+    public boolean allReady(){
+        for (Player player: players){
+            if (!player.getStatus()){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
     }
 }

@@ -1,7 +1,7 @@
 package ru.itis.helpers;
 
 import com.google.gson.Gson;
-import ru.itis.server.Room;
+import ru.itis.general.entities.Room;
 
 public class RoomParser {
     public static String toJson(Room room){
