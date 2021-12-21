@@ -2,14 +2,26 @@ package ru.itis.general.helpers;
 
 import ru.itis.general.entities.Car;
 
-public class CarParser implements MessageParser<Car>{
+import java.util.List;
+
+public class CarParser implements ObjectParser<Car>{
     @Override
-    public byte[] serializeMessage(Car object) {
+    public byte[] serializeObject(Car object) {
         return new byte[0];
     }
 
     @Override
-    public Car deserializeMessage(byte[] message) {
+    public byte[] serializeObject(List<Car> objects) {
+        return new byte[0];
+    }
+
+    @Override
+    public Car deSerializeObject(byte[] object) {
+        return null;
+    }
+
+    @Override
+    public List<Car> deSerializeObjects(byte[] objects) {
         return null;
     }
 }

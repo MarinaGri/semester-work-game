@@ -41,16 +41,16 @@ public class Constants {
     public static final byte SUCCESS_NICKNAME = 7;
     public static final byte SUCCESS = 8;
     public static final byte SUCCESS_JOIN_ROOM = 9;
+    public static final byte SUCCESS_READY = 10;
+    public static final byte SET_DESIGN = 11;
 
     public static final byte ENTRANCE = 64;
     public static final byte TYPE_GAME = 65;
-    //public static final byte CREATE_ROOM = 66;
     public static final byte JOIN_ROOM = 66;
     public static final byte READY_RESPONSE = 67;
     public static final byte EXIT_ROOM = 68;
     public static final byte EXIT = 69;
     public static final byte CHOOSE_DESIGN = 70;
-    public static final byte SET_DESIGN = 71;
 
     //возвращает характеристический вектор типов сообщений
     //элемент true => сообщение с таким типом есть
