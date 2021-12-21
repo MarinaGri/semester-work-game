@@ -26,11 +26,13 @@ public class JoinRoomListener extends AbstractServerEventListener{
         boolean joined = false;
         Room joinedRoom = null;
         Player player = connection.getPlayer();
+        System.out.println(1);
 
         for (Room room: server.getAllRooms()){
             if (!joined && (room.getNumberOfPlayers() < Room.MAX_PLAYERS)){
                 room.addPlayer(player);
                 player.setRoom(room);
+                System.out.println(2);
 
                 if (room.getNumberOfPlayers() == Room.MAX_PLAYERS){
                     server.sendBroadCastMessage(room, new Message(Constants.READY_REQUEST));
@@ -41,13 +43,16 @@ public class JoinRoomListener extends AbstractServerEventListener{
             }
         }
 
+        System.out.println(3);
         if (!joined){
+            System.out.println(4);
             joinedRoom = server.createRoom();
             joinedRoom.addPlayer(player);
         }
 
         Message toClient = new Message(Constants.SUCCESS_JOIN_ROOM,
                 playerParser.serializeObject(joinedRoom.getPlayers()));
+        System.out.println(5);
 
         server.sendMessage(connection, toClient);
     }

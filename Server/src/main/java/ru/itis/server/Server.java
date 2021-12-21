@@ -54,7 +54,7 @@ public class Server implements IServer{
 
     protected void handleConnection(Socket socket) throws ServerException{
         try {
-            Connection connection = new Connection(this, socket, this.connections.size() + 1);
+            Connection connection = new Connection(this, socket);
             this.connections.add(connection);
 
             new Thread(connection).start();
@@ -127,7 +127,12 @@ public class Server implements IServer{
         Iterator<Connection> iterator = connections.iterator();
 
         while (iterator.hasNext()){
-            if (connection.getId() == iterator.next().getId()){
+            Connection conn = iterator.next();
+
+            if (connection.getId() == conn.getId()){
+                Player player = connection.getPlayer();
+                player.exitRoom();
+
                 iterator.remove();
             }
         }

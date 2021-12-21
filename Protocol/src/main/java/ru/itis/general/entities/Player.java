@@ -20,6 +20,7 @@ public class Player {
     protected Room room;
 
     public void exitRoom(){
+        room.deletePlayer(this);
         room = null;
     }
 }

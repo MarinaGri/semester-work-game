@@ -17,6 +17,7 @@ import java.util.List;
 
 @Data
 public class Connection implements Runnable{
+    private static int count = 0;
     protected int id;
 
     protected IServer server;
@@ -29,8 +30,8 @@ public class Connection implements Runnable{
 
     protected List<IServerEventListener> listeners;
 
-    public Connection(IServer server, Socket socket, int id) throws IOException{
-        this.id = id;
+    public Connection(IServer server, Socket socket) throws IOException{
+        this.id = count++;
         this.server = server;
         this.socket = socket;
         inputStream = new MessageInputStream(socket.getInputStream());
