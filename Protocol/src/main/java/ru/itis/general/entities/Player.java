@@ -17,7 +17,7 @@ public class Player {
     protected Integer time;
     protected Integer money;
     protected Car car;
-    protected Room room;
+    protected transient Room room;
 
     public void exitRoom(){
         room.deletePlayer(this);
