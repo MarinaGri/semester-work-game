@@ -3,7 +3,6 @@ package ru.itis.gui;
 import ru.itis.general.entities.Player;
 import ru.itis.gui.components.MainJPanel;
 
-import java.awt.*;
 import java.util.List;
 
 public class GuiManager {
@@ -33,6 +32,14 @@ public class GuiManager {
 
     public void showCarShop(Player player){
         mainJPanel.showCarShop(player);
+    }
+
+    public void showRoundResults(List<Player> players) {
+        mainJPanel.showResults(players, false);
+    }
+
+    public void showFinalResults(List<Player> players) {
+        mainJPanel.showResults(players, true);
     }
 
 }

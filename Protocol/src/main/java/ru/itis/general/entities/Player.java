@@ -15,6 +15,7 @@ public class Player {
     protected Boolean status;
 
     protected Integer time;
+    protected Integer result;
     protected Integer money;
     protected Car car;
     protected Room room;

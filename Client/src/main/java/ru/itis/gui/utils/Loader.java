@@ -20,7 +20,7 @@ public class Loader {
                 image = ImageIO.read(new File(resource.toURI()));
             }
         } catch (URISyntaxException | IOException | IllegalArgumentException ex) {
-            JOptionPane.showInternalMessageDialog(null, GuiConst.IMG_LOAD_FAIL);
+            JOptionPane.showInternalMessageDialog(null, "Не удалось загрузить изображение");
         }
         return image;
     }
