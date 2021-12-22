@@ -45,6 +45,7 @@ public class Constants {
     public static final byte SUCCESS_SET_DESIGN = 11;
     public static final byte FAIL_SET_DESIGN = 12;
     public static final byte SEND_CARS = 13;
+    public static final byte SUCCESS_EXIT_ROOM = 14;
 
     public static final byte ENTRANCE = 64;
     public static final byte TYPE_GAME = 65;
