@@ -44,6 +44,7 @@ public class JoinRoomListener extends AbstractServerEventListener{
         if (!joined){
             joinedRoom = server.createRoom();
             joinedRoom.addPlayer(player);
+            player.setRoom(joinedRoom);
         }
 
         Message toClient = new Message(Constants.SUCCESS_JOIN_ROOM,

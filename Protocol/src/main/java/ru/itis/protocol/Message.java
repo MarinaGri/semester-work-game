@@ -21,7 +21,7 @@ public class Message {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < data.length; i =+ 2){
+        for (int i = 0; i < data.length; i = i + 2){
             char a = (char) (data[i]<<8 | data[i+1]);
             sb.append(a);
         }

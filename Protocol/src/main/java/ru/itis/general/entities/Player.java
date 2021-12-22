@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class Player {
     protected Integer id;
@@ -18,9 +17,10 @@ public class Player {
     protected Integer result;
     protected Integer money;
     protected Car car;
-    protected Room room;
+    protected transient Room room;
 
     public void exitRoom(){
+        room.deletePlayer(this);
         room = null;
     }
 }
