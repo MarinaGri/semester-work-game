@@ -1,13 +1,19 @@
 package ru.itis.listeners;
 
+import ru.itis.general.entities.Player;
 import ru.itis.general.entities.Room;
+import ru.itis.general.helpers.ObjectParser;
+import ru.itis.general.helpers.PlayerParser;
 import ru.itis.protocol.Constants;
 import ru.itis.protocol.Message;
 import ru.itis.server.Connection;
 
 public class ExitRoomListener extends AbstractServerEventListener{
+    protected ObjectParser<Player> playerParser;
+
     public ExitRoomListener(){
         super(Constants.EXIT_ROOM);
+        playerParser = new PlayerParser();
     }
     @Override
     public void handle(Connection connection, Message message) {
@@ -16,6 +22,9 @@ public class ExitRoomListener extends AbstractServerEventListener{
         playerRoom.deletePlayer(connection.getPlayer());
         connection.getPlayer().exitRoom();
 
-        //success_delete? отправлять на клиент сообщение, что все ок
+        Message toClient = new Message(Constants.SUCCESS_EXIT_ROOM,
+                playerParser.serializeObject(playerRoom.getPlayers()));
+
+        server.sendBroadCastMessage(playerRoom, toClient);
     }
 }

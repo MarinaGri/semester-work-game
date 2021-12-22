@@ -50,6 +50,6 @@ public class JoinRoomListener extends AbstractServerEventListener{
         Message toClient = new Message(Constants.SUCCESS_JOIN_ROOM,
                 playerParser.serializeObject(joinedRoom.getPlayers()));
 
-        server.sendMessage(connection, toClient);
+        server.sendBroadCastMessage(joinedRoom, toClient);
     }
 }
