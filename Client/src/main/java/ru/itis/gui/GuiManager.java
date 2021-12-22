@@ -9,6 +9,7 @@ import ru.itis.gui.listeners.KeyListenerForCar;
 import ru.itis.gui.listeners.MotionListener;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -100,11 +101,17 @@ public class GuiManager {
     }
 
     public void showRoundResults(List<Player> players) {
-        mainJPanel.showResults(players, false);
+        showResults(players, false);
     }
 
     public void showFinalResults(List<Player> players) {
-        mainJPanel.showResults(players, true);
+        showResults(players, true);
+    }
+
+    private void showResults(List<Player> players, boolean flag){
+        window.getMainFrame().getContentPane().remove(window.getMainFrame().getContentPane().getComponent(0));
+        window.getMainFrame().getContentPane().add(mainJPanel);
+        mainJPanel.showResults(players, flag);
     }
 
     public void showNotEnoughMoney(int price){

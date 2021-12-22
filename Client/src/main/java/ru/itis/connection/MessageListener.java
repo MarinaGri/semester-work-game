@@ -48,6 +48,7 @@ public class MessageListener implements Runnable{
                         break;
                     }
                     case SUCCESS_JOIN_ROOM:
+                    case SUCCESS_READY:
                     case SUCCESS_EXIT_ROOM: {
                         guiManager.changePlayersInRoom(playerParser.deserializeObjects(message.getData()));
                         break;
@@ -85,7 +86,8 @@ public class MessageListener implements Runnable{
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {
-                            e.printStackTrace();
+
+                            JOptionPane.showInternalMessageDialog(null, "Не удалось запустить игру");
                         }
                         guiManager.showRace(connection.getPlayer());
                         guiManager.startTimers();
