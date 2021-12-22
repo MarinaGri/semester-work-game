@@ -16,12 +16,12 @@ public class CarParser implements ObjectParser<Car>{
     }
 
     @Override
-    public Car deSerializeObject(byte[] object) {
+    public Car deserializeObject(byte[] object) {
         return null;
     }
 
     @Override
-    public List<Car> deSerializeObjects(byte[] objects) {
+    public List<Car> deserializeObjects(byte[] objects) {
         return null;
     }
 }

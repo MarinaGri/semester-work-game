@@ -47,7 +47,7 @@ public class MessageListener implements Runnable{
                     }
                     case SUCCESS_JOIN_ROOM:{
                         System.out.println(message.toString());
-                        guiManager.changePlayersInRoom(playerParser.deSerializeObjects(message.getData()));
+                        guiManager.changePlayersInRoom(playerParser.deserializeObjects(message.getData()));
                         break;
                     }
                     case READY_REQUEST:{

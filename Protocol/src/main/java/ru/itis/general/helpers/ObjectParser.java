@@ -6,6 +6,6 @@ public interface ObjectParser<T> {
     byte[] serializeObject(T object);
     byte[] serializeObject(List<T> objects);
 
-    T deSerializeObject(byte[] object);
-    List<T> deSerializeObjects(byte[] objects);
+    T deserializeObject(byte[] object);
+    List<T> deserializeObjects(byte[] objects);
 }

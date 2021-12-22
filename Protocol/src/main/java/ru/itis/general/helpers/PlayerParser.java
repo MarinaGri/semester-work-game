@@ -28,14 +28,14 @@ public class PlayerParser implements ObjectParser<Player>{
     }
 
     @Override
-    public Player deSerializeObject(byte[] player) {
+    public Player deserializeObject(byte[] player) {
         String text = textParser.deserializeMessage(player);
 
         return gson.fromJson(text, Player.class);
     }
 
     @Override
-    public List<Player> deSerializeObjects(byte[] players) {
+    public List<Player> deserializeObjects(byte[] players) {
         List<Player> resultPlayers = new ArrayList<>();
         String text = textParser.deserializeMessage(players);
 
