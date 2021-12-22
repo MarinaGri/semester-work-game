@@ -1,5 +1,6 @@
 package ru.itis.gui;
 
+import ru.itis.general.entities.Car;
 import ru.itis.general.entities.Player;
 import ru.itis.gui.components.MainJPanel;
 
@@ -30,8 +31,8 @@ public class GuiManager {
         mainJPanel.getRoomJPanel().addReadyButton();
     }
 
-    public void showCarShop(Player player){
-        mainJPanel.showCarShop(player);
+    public void showCarShop(Player player, List<Car> cars){
+        mainJPanel.showCarShop(player, cars);
     }
 
     public void showRoundResults(List<Player> players) {
@@ -42,4 +43,7 @@ public class GuiManager {
         mainJPanel.showResults(players, true);
     }
 
+    public void showNotEnoughMoney(int price){
+        mainJPanel.getCarShopJPanel().showFrame(false, price);
+    }
 }

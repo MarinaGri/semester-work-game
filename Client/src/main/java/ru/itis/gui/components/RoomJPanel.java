@@ -5,6 +5,7 @@ import ru.itis.connection.Connection;
 import ru.itis.general.entities.Player;
 import ru.itis.general.helpers.MessageParser;
 import ru.itis.general.helpers.TextParser;
+import ru.itis.gui.listeners.EnterStoreListener;
 import ru.itis.gui.utils.ConnectionWrapper;
 import ru.itis.gui.utils.GuiConst;
 import ru.itis.gui.utils.Loader;
@@ -144,7 +145,18 @@ public class RoomJPanel extends JPanel {
         button.setBackground(Color.RED);
         button.setForeground(Color.WHITE);
 
+
+        Dimension shSize = new Dimension(DIMENSION.width/8, DIMENSION.height/20);
+        JButton shop = new JButton("Магазин");
+        shop.addActionListener(new EnterStoreListener());
+        shop.setFont(font);
+        shop.setPreferredSize(shSize);
+        shop.setBackground(Color.RED);
+        shop.setForeground(Color.WHITE);
+
+        bottom.add(shop);
         bottom.add(button);
+
         this.add(bottom, BorderLayout.PAGE_END);
     }
 }

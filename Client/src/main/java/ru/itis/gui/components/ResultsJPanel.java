@@ -1,20 +1,18 @@
 package ru.itis.gui.components;
 
-import ru.itis.connection.Connection;
+import lombok.Data;
 import ru.itis.general.entities.Player;
-import ru.itis.gui.utils.ConnectionWrapper;
-import ru.itis.gui.utils.GuiConst;
+import ru.itis.general.helpers.PlayerComparator;
+import ru.itis.gui.listeners.EnterStoreListener;
 import ru.itis.gui.utils.Loader;
-import ru.itis.protocol.Constants;
-import ru.itis.protocol.Message;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.util.List;
 
 import static ru.itis.gui.utils.GuiConst.*;
 
+@Data
 public class ResultsJPanel extends JPanel {
     private Font font;
     private MainJPanel mainJPanel;
@@ -23,7 +21,9 @@ public class ResultsJPanel extends JPanel {
         this.setBackground(COLOR);
         this.setBorder(BLACK_BORDER);
         this.setLayout(new BorderLayout());
+        this.mainJPanel = mainJPanel;
 
+        players.sort(new PlayerComparator().reversed());
         JPanel main = new JPanel();
         main.setLayout(new GridBagLayout());
         main.setBackground(COLOR);
@@ -101,12 +101,16 @@ public class ResultsJPanel extends JPanel {
         button.setBackground(COLOR);
         Dimension bSize = new Dimension(DIMENSION.width/10, DIMENSION.height/25);
         button.setFont(font);
+        button.addActionListener(e -> {
+            mainJPanel.showEnterRoomButton();
+        });
         button.setMinimumSize(bSize);
         button.setMaximumSize(bSize);
         button.setBorder(BLACK_BORDER);
 
         JButton shop = new JButton("Магазин");
         shop.setFont(font);
+        shop.addActionListener(new EnterStoreListener());
         shop.setPreferredSize(bSize);
         shop.setBackground(Color.RED);
         shop.setForeground(Color.WHITE);

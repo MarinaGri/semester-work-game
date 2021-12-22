@@ -1,5 +1,6 @@
 package ru.itis.gui.components;
 
+import lombok.Data;
 import ru.itis.general.entities.Player;
 import ru.itis.gui.utils.GuiConst;
 import ru.itis.gui.utils.Loader;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import static ru.itis.gui.utils.GuiConst.DIMENSION;
 
+@Data
 public class RoomPlayersJPanel extends JPanel {
     private Border lineBorder;
     private Font font;
@@ -32,6 +34,7 @@ public class RoomPlayersJPanel extends JPanel {
 
                 JLabel nick = new JLabel(player.getNickname());
                 nick.setFont(font.deriveFont(DIMENSION.height / 30f));
+                nick.setAlignmentX(Component.CENTER_ALIGNMENT);
                 panel.add(nick, BorderLayout.CENTER);
 
                 JLabel status = new JLabel(player.getStatus() ? "READY!" : "WAITING..");

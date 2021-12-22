@@ -1,22 +1,26 @@
 package ru.itis.gui.components;
 
-import ru.itis.general.entities.Player;
-import ru.itis.gui.listeners.CheckMoneyListener;
-import ru.itis.gui.utils.GuiConst;
-import ru.itis.gui.utils.Loader;
+import lombok.Data;
+import ru.itis.general.entities.*;
+import ru.itis.gui.utils.*;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
+import javax.swing.border.*;
 import java.awt.*;
+import java.util.List;
 
 import static ru.itis.gui.utils.GuiConst.*;
 
+@Data
 public class CarShopJPanel extends JPanel {
+    private MainJPanel mainJPanel;
     private JPanel carsPanel;
     private Font font;
+    private List<Car> cars;
 
-    public CarShopJPanel(Player player) {
+    public CarShopJPanel(MainJPanel mainJPanel, Player player, List<Car> cars) {
+        this.mainJPanel = mainJPanel;
+        this.cars = cars;
         font = Loader.loadFont("default.otf").deriveFont(DIMENSION.height/20f);
         this.setBackground(COLOR);
         this.setLayout(new BorderLayout());
@@ -53,9 +57,12 @@ public class CarShopJPanel extends JPanel {
         for(int i = 0; i < 3; i++){
             constraints.gridx = i;
 
-            JButton button = new JButton(String.valueOf(GuiConst.PRICES[i]));
+            JButton button = new JButton(String.valueOf(cars.get(i).getPrice()));
             button.setBorder(carBorder);
-            button.addActionListener(new CheckMoneyListener(player));
+            button.addActionListener(e ->{
+                int price = Integer.parseInt(button.getText());
+                showFrame(player.getMoney() >= price, price);
+            });
             button.setBackground(COLOR);
             button.add(new JPanelWithBackground(Loader.loadImg(i + ".png")));
             button.setPreferredSize(new Dimension(DIMENSION.width/6, DIMENSION.height/5));
@@ -68,7 +75,7 @@ public class CarShopJPanel extends JPanel {
         for(int i = 0; i < 3; i++){
             constraints.gridx = i;
 
-            JLabel price = new JLabel(String.valueOf(GuiConst.PRICES[i]));
+            JLabel price = new JLabel(String.valueOf(cars.get(i).getPrice()));
             price.setFont(font);
             carsPanel.add(price, constraints);
         }
@@ -83,6 +90,9 @@ public class CarShopJPanel extends JPanel {
         button.setBackground(COLOR);
         Dimension bSize = new Dimension(DIMENSION.width/10, DIMENSION.height/25);
         button.setFont(font);
+        button.addActionListener(e -> {
+            mainJPanel.showEnterRoomButton();
+        });
         button.setMinimumSize(bSize);
         button.setMaximumSize(bSize);
         button.setBorder(BLACK_BORDER);
@@ -95,5 +105,9 @@ public class CarShopJPanel extends JPanel {
         Dimension thisSize = new Dimension(DIMENSION.width/2, DIMENSION.height - DIMENSION.height/3);
         this.setMinimumSize(thisSize);
         this.setMaximumSize(thisSize);
+    }
+
+    public void showFrame(boolean isEnough, int price){
+        ShopDialogFrameShower.showFrame(cars, isEnough, price);
     }
 }

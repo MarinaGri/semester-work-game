@@ -1,6 +1,7 @@
 package ru.itis.gui.components;
 
 import lombok.Getter;
+import ru.itis.general.entities.Car;
 import ru.itis.general.entities.Player;
 
 import javax.swing.*;
@@ -33,9 +34,9 @@ public class MainJPanel extends JPanelWithBackground{
         validateAndRepaint();
     }
 
-    public void showCarShop(Player player){
+    public void showCarShop(Player player, List<Car> cars){
         this.remove(1);
-        this.carShopJPanel = new CarShopJPanel(player);
+        this.carShopJPanel = new CarShopJPanel(this, player,  cars);
         this.add(carShopJPanel, 1);
 
         validateAndRepaint();
