@@ -34,5 +34,8 @@ public class GuiManager {
     public void showCarShop(Player player){
         mainJPanel.showCarShop(player);
     }
+    public void showRace() {
+        mainJPanel.showRace();
+    }
 
 }
