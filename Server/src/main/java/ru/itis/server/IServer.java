@@ -2,7 +2,7 @@ package ru.itis.server;
 
 import ru.itis.general.entities.Car;
 import ru.itis.general.entities.Room;
-import ru.itis.listeners.IServerEventListener;
+import ru.itis.listeners.general.IServerEventListener;
 import ru.itis.protocol.Message;
 
 import java.rmi.ServerException;
@@ -24,8 +24,6 @@ public interface IServer {
     public List<Room> getAllRooms();
     public Room createRoom();
     public void removeRoom(Room room);
-
-    public List<IServerEventListener> getListeners();
 
     public List<Car> getAvailableCars();
 }

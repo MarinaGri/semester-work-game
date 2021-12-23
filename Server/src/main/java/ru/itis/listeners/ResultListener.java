@@ -4,6 +4,7 @@ import ru.itis.general.entities.Player;
 import ru.itis.general.entities.Room;
 import ru.itis.general.helpers.ObjectParser;
 import ru.itis.general.helpers.PlayerParser;
+import ru.itis.listeners.general.AbstractServerEventListener;
 import ru.itis.protocol.Constants;
 import ru.itis.protocol.Message;
 import ru.itis.server.Connection;
@@ -12,7 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ResultListener extends AbstractServerEventListener{
+public class ResultListener extends AbstractServerEventListener {
     private ObjectParser<Player> playerParser;
 
     public ResultListener(){
