@@ -38,6 +38,9 @@ public class GuiManager {
             mainJPanel.showCarShop(player, cars);
         }
     }
+    public void showRace() {
+        mainJPanel.showRace();
+    }
 
     public void showRoundResults(List<Player> players) {
         mainJPanel.showResults(players, false);
