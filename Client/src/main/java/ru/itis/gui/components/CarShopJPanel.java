@@ -65,7 +65,7 @@ public class CarShopJPanel extends JPanel {
                 showFrame(player.getMoney() >= price, price);
             });
             button.setBackground(COLOR);
-            button.add(new JPanelWithBackground(Loader.loadImg(i + ".png"), true));
+            button.add(new JPanelWithBackground(Loader.loadImg(car.getImage() + ".jpeg"), true));
             button.setPreferredSize(new Dimension(DIMENSION.width/6, DIMENSION.height/5));
             carsPanel.add(button, constraints);
         }

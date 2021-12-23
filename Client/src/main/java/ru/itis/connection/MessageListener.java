@@ -89,6 +89,7 @@ public class MessageListener implements Runnable{
                         } catch (InterruptedException e) {
                             JOptionPane.showInternalMessageDialog(null, "Не удалось запустить игру");
                         }
+
                         guiManager.showRace(connection.getPlayer());
                         guiManager.startTimers();
                     }
