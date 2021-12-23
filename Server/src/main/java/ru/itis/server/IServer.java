@@ -1,5 +1,6 @@
 package ru.itis.server;
 
+import ru.itis.general.entities.Car;
 import ru.itis.general.entities.Room;
 import ru.itis.listeners.IServerEventListener;
 import ru.itis.protocol.Message;
@@ -14,7 +15,7 @@ public interface IServer {
     public void registerListener(List<IServerEventListener> listeners);
 
     public void sendMessage(Connection connection, Message message);
-    public void sendBroadCastMessage(Room room, Message message);
+    public void sendMulticastMessage(Room room, Message message);
 
     public void removeConnection(Connection connection);
     public Connection getConnectionById(Integer id);
@@ -25,4 +26,6 @@ public interface IServer {
     public void removeRoom(Room room);
 
     public List<IServerEventListener> getListeners();
+
+    public List<Car> getAvailableCars();
 }

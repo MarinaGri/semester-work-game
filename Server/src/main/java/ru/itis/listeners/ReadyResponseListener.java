@@ -24,7 +24,7 @@ public class ReadyResponseListener extends AbstractServerEventListener{
 
         if (room.allReady()){
             Message toClient = new Message(Constants.ALL_READY);
-            server.sendBroadCastMessage(room, toClient);
+            server.sendMulticastMessage(room, toClient);
         }
     }
 }

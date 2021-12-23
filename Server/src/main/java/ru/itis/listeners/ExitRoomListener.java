@@ -15,6 +15,7 @@ public class ExitRoomListener extends AbstractServerEventListener{
         super(Constants.EXIT_ROOM);
         playerParser = new PlayerParser();
     }
+
     @Override
     public void handle(Connection connection, Message message) {
         Room playerRoom = connection.getPlayer().getRoom();
@@ -25,6 +26,6 @@ public class ExitRoomListener extends AbstractServerEventListener{
         Message toClient = new Message(Constants.SUCCESS_EXIT_ROOM,
                 playerParser.serializeObject(playerRoom.getPlayers()));
 
-        server.sendBroadCastMessage(playerRoom, toClient);
+        server.sendMulticastMessage(playerRoom, toClient);
     }
 }

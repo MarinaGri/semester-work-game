@@ -8,7 +8,7 @@ import ru.itis.general.entities.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerParser implements ObjectParser<Player>{
+public class PlayerParser implements ObjectParser<Player> {
     private TextParser textParser;
     private Gson gson;
 
