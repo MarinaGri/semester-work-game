@@ -36,7 +36,6 @@ public class Connection implements Runnable{
         this.socket = socket;
         inputStream = new MessageInputStream(socket.getInputStream());
         outputStream = new MessageOutputStream(socket.getOutputStream());
-        listeners = server.getListeners();
     }
 
     @Override

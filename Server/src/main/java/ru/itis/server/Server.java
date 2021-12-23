@@ -72,18 +72,21 @@ public class Server implements IServer{
         availableCars = new ArrayList<>();
 
         availableCars.add(Car.builder()
+                .image("brown_lada")
                 .carColor(new Color(139, 69, 18))
                 .wheelColor(new Color(64, 64, 64))
                 .price(10)
                 .build());
 
         availableCars.add(Car.builder()
+                .image("purple_ferrari")
                 .carColor(new Color(221, 160, 220))
                 .wheelColor(new Color(75, 0, 129))
                 .price(15)
                 .build());
 
         availableCars.add(Car.builder()
+                .image("green_kia")
                 .carColor(new Color(47, 79, 78))
                 .wheelColor(new Color(0, 0, 0))
                 .price(10)

@@ -33,7 +33,7 @@ public class MotionListener implements ActionListener {
 
         if (racePanel.getYForOtherCar() > racePanel.getHeight()) {
             racePanel.setYForOtherCar(0);
-            int x = random.nextInt( racePanel.getWidth()*3/4 + 1 - racePanel.getWidth()/4) + racePanel.getWidth()/4;
+            int x = random.nextInt( racePanel.getWidth()*3/4 + 1 - racePanel.getWidth()/4) + racePanel.getWidth()/4 + 1;
             racePanel.setXForOtherCar(x);
         }
 

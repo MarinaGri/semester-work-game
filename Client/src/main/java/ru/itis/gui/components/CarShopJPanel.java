@@ -24,7 +24,7 @@ public class CarShopJPanel extends JPanel {
         font = Loader.loadFont("default.otf").deriveFont(DIMENSION.height/20f);
         this.setBackground(COLOR);
         this.setLayout(new BorderLayout());
-        JPanel panel = new JPanelWithBackground(Loader.loadImg("monetka.png"));
+        JPanel panel = new JPanelWithBackground(Loader.loadImg("monetka.png"), true);
         panel.setPreferredSize(new Dimension(DIMENSION.height/20, DIMENSION.height/20));
 
         JPanel top = new JPanel();
@@ -64,7 +64,7 @@ public class CarShopJPanel extends JPanel {
                 showFrame(player.getMoney() >= price, price);
             });
             button.setBackground(COLOR);
-            button.add(new JPanelWithBackground(Loader.loadImg(i + ".png")));
+            button.add(new JPanelWithBackground(Loader.loadImg(i + ".png"), true));
             button.setPreferredSize(new Dimension(DIMENSION.width/6, DIMENSION.height/5));
             carsPanel.add(button, constraints);
         }

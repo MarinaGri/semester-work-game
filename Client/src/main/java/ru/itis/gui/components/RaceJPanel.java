@@ -1,6 +1,7 @@
 package ru.itis.gui.components;
 
 import java.awt.*;
+import java.util.Random;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import ru.itis.gui.utils.GuiConst;
 @Setter
 public class RaceJPanel extends JPanelWithBackground {
 
+    private int x;
     private int xForCar;
     private int yForCar;
     private int xForOtherCar;
@@ -31,12 +33,11 @@ public class RaceJPanel extends JPanelWithBackground {
     private Dimension dimension;
 
 
-    public RaceJPanel(Image image) {
-        super(image);
+    public RaceJPanel(Image image, boolean flag) {
+        super(image, flag);
         dimension = Toolkit.getDefaultToolkit().getScreenSize();
         this.setBackground(GuiConst.COLOR);
         Dimension thisSize = new Dimension(dimension.width/4, dimension.height/4);
-        this.addKeyListener(new KeyListenerForCar(this));
         this.setPreferredSize(dimension);
         this.setMinimumSize(thisSize);
     }
@@ -49,14 +50,14 @@ public class RaceJPanel extends JPanelWithBackground {
         heightCar = getHeight()/4;
         widthCar = getWidth()/12;
 
-        widthWheel = getWidth()/25;
-        heightWheel = getHeight()/25;
+        widthWheel = getWidth()/30;
+        heightWheel = getWidth()/30;
 
         carWheel.fillOval(getWidth() / 2 + offsetX, getHeight()  + offsetY -getHeight()/4, widthWheel, heightWheel); //левое верхнее
-        carWheel.fillOval(getWidth() / 2 + offsetX, getHeight() - heightCar +  offsetY + heightWheel * (yForCar / heightWheel), widthWheel, heightWheel);//левое нижнее);
+        carWheel.fillOval(getWidth() / 2 + offsetX, getHeight() - heightCar +  offsetY + heightWheel * (heightCar / heightWheel), widthWheel, heightWheel);//левое нижнее);
         carWheel.fillOval(getWidth() / 2 + offsetX + widthCar + widthWheel, getHeight()  + offsetY - heightCar + heightWheel * (heightCar / heightWheel), widthWheel, heightWheel);//правое нижнее);
         carWheel.fillOval(getWidth() / 2 + offsetX + widthCar + widthWheel, getHeight()  + offsetY - heightCar, widthWheel, heightWheel);//правое верхнее);
-        carWheel.dispose();
+//        carWheel.dispose();
 
         xForCar = getWidth()/2 + widthWheel + offsetX;
         yForCar = getHeight() - getHeight()/4 + offsetY;
@@ -70,6 +71,8 @@ public class RaceJPanel extends JPanelWithBackground {
         coin = (Graphics2D) g.create();
         coin.setColor(GuiConst.COLOR_COINS);
 
+        checkXForCoin();
+
         int radiusForCoin = getWidth()/30;
         coin.fillOval( xForCoin, yForCoin, radiusForCoin, radiusForCoin);
         coin.dispose();
@@ -77,13 +80,18 @@ public class RaceJPanel extends JPanelWithBackground {
         Graphics2D tree = (Graphics2D)  g.create();
 
         int widthTree = getWidth();
-        tree.setColor(Color.GREEN);
-        int radius = getWidth()/20;
+        tree.setColor(GuiConst.COLOR_TREE);
+        int radius = getWidth()/40;
 
-        tree.fillOval((widthTree / 4) - radius, yForTree - (radius * 2), radius * 2, radius * 2);
-        tree.fillOval((widthTree / 4) - radius, yForTree - radius, radius * 2, radius * 2);
-        tree.fillOval((widthTree / 4) - (radius * 2), yForTree - radius, radius * 2, radius * 2);
-        tree.fillOval((widthTree / 4), yForTree - radius, radius * 2, radius * 2);
+        tree.fillOval((widthTree / 4) - radius - 5, yForTree - (radius * 2), radius * 2, radius * 2);
+        tree.fillOval((widthTree / 4) - radius - 5, yForTree - radius, radius * 2, radius * 2);
+        tree.fillOval((widthTree / 4) - (radius * 2) - 5, yForTree - radius, radius * 2, radius * 2);
+        tree.fillOval((widthTree / 4) - 5, yForTree - radius, radius * 2, radius * 2);
+
+        tree.fillOval((widthTree *3 / 4) - radius + 5, yForTree - (radius * 2), radius * 2, radius * 2);
+        tree.fillOval((widthTree*3 / 4) - radius + 5, yForTree - radius, radius * 2, radius * 2);
+        tree.fillOval((widthTree*3 / 4) - (radius * 2) + 5, yForTree - radius, radius * 2, radius * 2);
+        tree.fillOval((widthTree*3 / 4) + 5, yForTree - radius, radius * 2, radius * 2);
         tree.dispose();
 
         Graphics2D otherCarWheel = (Graphics2D) g.create();
@@ -103,4 +111,10 @@ public class RaceJPanel extends JPanelWithBackground {
 
     }
 
+    private void checkXForCoin() {
+        Random random = new Random();
+        if (xForCoin == 0) {
+            xForCoin = random.nextInt( this.getWidth()*3/4 + 1 - this.getWidth()/4) + this.getWidth()/4;
+        }
+    }
 }

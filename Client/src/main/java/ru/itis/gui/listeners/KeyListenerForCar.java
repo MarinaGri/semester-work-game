@@ -24,10 +24,10 @@ public class KeyListenerForCar implements KeyListener {
     public void keyPressed(KeyEvent event) {
 
         if ((event.getKeyCode() == KeyEvent.VK_A)) {
-            panelWithCar.setOffsetX(-5);
+            panelWithCar.setOffsetX(panelWithCar.getOffsetX() - 5);
         } else {
             if ((event.getKeyCode() == KeyEvent.VK_D)) {
-                panelWithCar.setOffsetX(5);
+                panelWithCar.setOffsetX(panelWithCar.getOffsetX() + 5);
             }
         }
 

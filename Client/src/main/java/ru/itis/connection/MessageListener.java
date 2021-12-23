@@ -85,12 +85,12 @@ public class MessageListener implements Runnable{
                         guiManager.showCarShop(player, null);
                         break;
                     }
-                    case SUCCESS_READY: {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                    case ALL_READY: {
+//                        try {
+//                            Thread.sleep(1000);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
                         guiManager.showRace(connection.getPlayer());
                         guiManager.startTimers();
                     }
