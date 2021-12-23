@@ -4,6 +4,7 @@ import java.awt.*;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.itis.gui.listeners.KeyListenerForCar;
 import ru.itis.gui.utils.GuiConst;
 
 @Getter
@@ -35,6 +36,7 @@ public class RaceJPanel extends JPanelWithBackground {
         dimension = Toolkit.getDefaultToolkit().getScreenSize();
         this.setBackground(GuiConst.COLOR);
         Dimension thisSize = new Dimension(dimension.width/4, dimension.height/4);
+        this.addKeyListener(new KeyListenerForCar(this));
         this.setPreferredSize(dimension);
         this.setMinimumSize(thisSize);
     }

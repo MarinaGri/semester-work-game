@@ -7,14 +7,14 @@ import ru.itis.general.entities.Room;
 import ru.itis.general.helpers.PlayerParser;
 import ru.itis.protocol.Constants;
 import ru.itis.protocol.Message;
-import ru.itis.listeners.IServerEventListener;
+import ru.itis.listeners.general.IServerEventListener;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.rmi.ServerException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -71,11 +71,23 @@ public class Server implements IServer{
     protected void initAvailableCars(){
         availableCars = new ArrayList<>();
 
-        availableCars.add(new Car("red", 10));
-        availableCars.add(new Car("green", 15));
-        availableCars.add(new Car("blue", 30));
-        availableCars.add(new Car("yellow", 20));
-        availableCars.add(new Car("black", 50));
+        availableCars.add(Car.builder()
+                .carColor(new Color(139, 69, 18))
+                .wheelColor(new Color(64, 64, 64))
+                .price(10)
+                .build());
+
+        availableCars.add(Car.builder()
+                .carColor(new Color(221, 160, 220))
+                .wheelColor(new Color(75, 0, 129))
+                .price(15)
+                .build());
+
+        availableCars.add(Car.builder()
+                .carColor(new Color(47, 79, 78))
+                .wheelColor(new Color(0, 0, 0))
+                .price(10)
+                .build());
     }
 
     @Override
@@ -180,11 +192,6 @@ public class Server implements IServer{
     @Override
     public void removeRoom(Room room) {
         rooms.remove(room);
-    }
-
-    @Override
-    public List<IServerEventListener> getListeners() {
-        return listeners;
     }
 
     @Override
