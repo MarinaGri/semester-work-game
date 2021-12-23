@@ -42,7 +42,9 @@ public class MessageListener implements Runnable{
                         break;
                     }
                     case SUCCESS_NICKNAME:{
-                        connection.getPlayer().setNickname(parser.deserializeMessage(message.getData()));
+                        Player player = connection.getPlayer();
+                        player.setNickname(parser.deserializeMessage(message.getData()));
+                        player.setMoney(0);
                         guiManager.showEnterRoomButton();
                         break;
                     }
@@ -51,7 +53,7 @@ public class MessageListener implements Runnable{
                         guiManager.changePlayersInRoom(playerParser.deserializeObjects(message.getData()));
                         break;
                     }
-                    case READY_REQUEST:{
+                    case READY_REQUEST: {
                         guiManager.addReadyButton();
                         break;
                     }
