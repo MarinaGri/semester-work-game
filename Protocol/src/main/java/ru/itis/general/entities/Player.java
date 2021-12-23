@@ -16,7 +16,7 @@ public class Player {
 
     protected Integer time;
     protected Integer result;
-
+  
     protected Integer money;
     protected Car car;
 

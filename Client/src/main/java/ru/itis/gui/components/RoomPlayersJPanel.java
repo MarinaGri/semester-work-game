@@ -1,5 +1,6 @@
 package ru.itis.gui.components;
 
+import lombok.Data;
 import ru.itis.general.entities.Player;
 import ru.itis.gui.utils.GuiConst;
 import ru.itis.gui.utils.Loader;
@@ -10,19 +11,20 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.List;
 
+import static ru.itis.gui.utils.GuiConst.DIMENSION;
+
+@Data
 public class RoomPlayersJPanel extends JPanel {
-    private Dimension dimension;
     private Border lineBorder;
     private Font font;
 
     public RoomPlayersJPanel(List<Player> players) {
-        dimension = Toolkit.getDefaultToolkit().getScreenSize();
         lineBorder = new LineBorder(new Color(169,159,98), 6);
-        font = Loader.loadFont("default.otf").deriveFont(dimension.height/30f);
+        font = Loader.loadFont("default.otf").deriveFont(DIMENSION.height/30f);
         this.setBackground(GuiConst.COLOR);
 
 
-        this.setLayout(new GridLayout(2, 3, dimension.width/20, dimension.height/20));
+        this.setLayout(new GridLayout(2, 3, DIMENSION.width/20, DIMENSION.height/20));
         if(players != null) {
             for (Player player : players) {
                 JPanel panel = new JPanel();
@@ -31,11 +33,12 @@ public class RoomPlayersJPanel extends JPanel {
                 panel.setBorder(lineBorder);
 
                 JLabel nick = new JLabel(player.getNickname());
-                nick.setFont(font.deriveFont(dimension.height / 30f));
+                nick.setFont(font.deriveFont(DIMENSION.height / 30f));
+                nick.setAlignmentX(Component.CENTER_ALIGNMENT);
                 panel.add(nick, BorderLayout.CENTER);
 
                 JLabel status = new JLabel(player.getStatus() ? "READY!" : "WAITING..");
-                status.setFont(font.deriveFont(dimension.height / 35f));
+                status.setFont(font.deriveFont(DIMENSION.height / 35f));
                 panel.add(status, BorderLayout.PAGE_END);
 
                 this.add(panel);

@@ -25,12 +25,11 @@ public class Connection {
             inputStream = new MessageInputStream(socket.getInputStream());
             player = new Player();
         } catch (IOException ex) {
-            throw new ConnectionLostException("", ex);
+            throw new ConnectionLostException("Failed to establish connection", ex);
         }
     }
 
     public void sendMessage(Message message) throws IOException {
-        if(outputStream == null) throw new IOException();
         outputStream.writeMessage(message);
     }
 
