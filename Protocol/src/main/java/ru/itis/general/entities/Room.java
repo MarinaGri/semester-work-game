@@ -42,6 +42,10 @@ public class Room {
     }
 
     public boolean allReady(){
+        if (players.size() != MAX_PLAYERS){
+            return false;
+        }
+
         for (Player player: players){
             if (!player.getStatus()){
                 return false;

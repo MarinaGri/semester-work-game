@@ -28,15 +28,12 @@ public class Connection implements Runnable{
 
     protected Player player;
 
-    protected List<IServerEventListener> listeners;
-
     public Connection(IServer server, Socket socket) throws IOException{
         this.id = count++;
         this.server = server;
         this.socket = socket;
         inputStream = new MessageInputStream(socket.getInputStream());
         outputStream = new MessageOutputStream(socket.getOutputStream());
-        listeners = server.getListeners();
     }
 
     @Override
