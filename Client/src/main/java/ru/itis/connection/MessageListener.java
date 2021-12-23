@@ -6,8 +6,10 @@ import ru.itis.general.entities.Car;
 import ru.itis.general.entities.Player;
 import ru.itis.general.helpers.*;
 import ru.itis.gui.GuiManager;
+
 import ru.itis.gui.components.CarShopJPanel;
 import ru.itis.gui.listeners.MotionListener;
+
 import ru.itis.protocol.Message;
 import ru.itis.protocol.MessageInputStream;
 

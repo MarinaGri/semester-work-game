@@ -1,4 +1,4 @@
-package ru.itis.listeners;
+package ru.itis.listeners.general;
 
 import ru.itis.protocol.Message;
 import ru.itis.server.Connection;

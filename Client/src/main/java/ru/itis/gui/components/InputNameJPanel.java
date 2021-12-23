@@ -64,7 +64,7 @@ public class InputNameJPanel extends JPanel {
     }
 
     public void showInvalidNameTip(){
-        JLabel jLabel = new JLabel("Игрок с таким именем уже есть");
+        JLabel jLabel = new JLabel("Имя занято");
         Dimension size = new Dimension(DIMENSION.width/10, DIMENSION.height/20);
         jLabel.setMinimumSize(size);
         jLabel.setMaximumSize(size);
