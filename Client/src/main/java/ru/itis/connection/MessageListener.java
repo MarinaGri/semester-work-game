@@ -82,15 +82,16 @@ public class MessageListener implements Runnable{
                         Car car = carParser.deserializeObject(message.getData());
                         player.setMoney(player.getMoney() - car.getPrice());
                         player.setCar(car);
+                        guiManager.changeCarColor(player.getCar().getCarColor(), player.getCar().getWheelColor());
                         guiManager.showCarShop(player, null);
                         break;
                     }
                     case ALL_READY: {
-//                        try {
-//                            Thread.sleep(1000);
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         guiManager.showRace(connection.getPlayer());
                         guiManager.startTimers();
                     }

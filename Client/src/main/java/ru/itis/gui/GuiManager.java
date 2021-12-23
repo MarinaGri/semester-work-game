@@ -1,16 +1,12 @@
 package ru.itis.gui;
 
-import ru.itis.exceptions.CollisionException;
 import ru.itis.general.entities.Car;
 import ru.itis.general.entities.Player;
 import ru.itis.gui.components.MainJPanel;
-import ru.itis.gui.components.RaceJPanel;
 import ru.itis.gui.listeners.CarCollisionListener;
 import ru.itis.gui.listeners.CoinCollectingListener;
 import ru.itis.gui.listeners.KeyListenerForCar;
 import ru.itis.gui.listeners.MotionListener;
-import ru.itis.gui.utils.GuiConst;
-import ru.itis.gui.utils.Loader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,18 +53,21 @@ public class GuiManager {
         window.getMainFrame().getContentPane().remove(mainJPanel);
         window.getMainFrame().addKeyListener(new KeyListenerForCar(mainJPanel.getRaceJPanel()));
         window.getMainFrame().getContentPane().add(mainJPanel.getRaceJPanel());
-
         window.getMainFrame().pack();
 
         timers = new ArrayList<>();
         timers.add(new Timer(8, new MotionListener(mainJPanel.getRaceJPanel())));
-        try {
-            timers.add(new Timer(1, new CarCollisionListener(mainJPanel.getRaceJPanel())));
-        } catch (CollisionException ex) {
-            stopTimers();
-            JOptionPane.showInternalMessageDialog(window.getMainFrame().getContentPane(), "You're loh");
-        }
+        CarCollisionListener collisionListener = new CarCollisionListener(mainJPanel.getRaceJPanel());
+        timers.add(new Timer(1, collisionListener));
+        timers.add(new Timer(1, e -> {
+            if (collisionListener.hasCollision) {
+                stopTimers();
+                JOptionPane.showInternalMessageDialog(window.getMainFrame().getContentPane(), "You're loh");
+                showWaitingPanel();
+            }
+        }));
         timers.add(new Timer(1, new CoinCollectingListener(mainJPanel.getRaceJPanel(), player)));
+
     }
 
     public void startTimers() {
@@ -83,6 +82,12 @@ public class GuiManager {
         }
     }
 
+    public void showWaitingPanel() {
+        window.getMainFrame().getContentPane().remove(mainJPanel.getRaceJPanel());
+        window.getMainFrame().getContentPane().add(mainJPanel.getWaitingPanel());
+        window.getMainFrame().pack();
+    }
+
     public void showRoundResults(List<Player> players) {
         mainJPanel.showResults(players, false);
     }
@@ -93,5 +98,10 @@ public class GuiManager {
 
     public void showNotEnoughMoney(int price){
         mainJPanel.getCarShopJPanel().showFrame(false, price);
+    }
+
+    public void changeCarColor(Color carColor, Color wheelColor) {
+            mainJPanel.getRaceJPanel().setCarColor(carColor);
+            mainJPanel.getRaceJPanel().setWheelColor(wheelColor);
     }
 }
