@@ -7,9 +7,11 @@ import ru.itis.general.entities.Player;
 import ru.itis.general.helpers.*;
 import ru.itis.gui.GuiManager;
 import ru.itis.gui.components.CarShopJPanel;
+import ru.itis.gui.listeners.MotionListener;
 import ru.itis.protocol.Message;
 import ru.itis.protocol.MessageInputStream;
 
+import javax.swing.*;
 import java.io.IOException;
 
 import static ru.itis.protocol.Constants.*;
@@ -80,6 +82,15 @@ public class MessageListener implements Runnable{
                         player.setCar(car);
                         guiManager.showCarShop(player, null);
                         break;
+                    }
+                    case SUCCESS_READY: {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        guiManager.showRace(connection.getPlayer());
+                        guiManager.startTimers();
                     }
                 }
             }

@@ -11,11 +11,11 @@ import java.util.Random;
 
 public class CoinCollectingListener implements ActionListener {
     private RaceJPanel racePanel;
-    private Connection connection;
+    private Player player;
 
-    public CoinCollectingListener(RaceJPanel panel, Connection connection) {
+    public CoinCollectingListener(RaceJPanel panel, Player player) {
         this.racePanel = panel;
-        this.connection = connection;
+        this.player = player;
     }
 
     @Override
@@ -24,7 +24,6 @@ public class CoinCollectingListener implements ActionListener {
         int x = random.nextInt( racePanel.getWidth()*3/4 + 1 - racePanel.getWidth()/4) + racePanel.getWidth()/4;
 
         if ((racePanel.getYForCoin() == racePanel.getYForCar()) && ((racePanel.getXForCoin() ) <= racePanel.getXForCar() + racePanel.getWidthCar()/2) && ((racePanel.getXForCoin() ) >= racePanel.getXForCar() - racePanel.getWidthCar()/2)) {
-            Player player = connection.getPlayer();
             player.setMoney(player.getMoney() + 1);
             racePanel.setYForCoin(0);
             racePanel.setXForCoin(x);
