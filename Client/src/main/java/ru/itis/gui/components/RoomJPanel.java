@@ -76,6 +76,7 @@ public class RoomJPanel extends JPanel {
         this.add(bottom, BorderLayout.PAGE_END);
         if(isReady) addReadyButton();
 
+        isReady = false;
         this.validate();
         this.repaint();
     }

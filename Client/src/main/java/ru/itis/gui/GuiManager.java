@@ -13,9 +13,11 @@ import ru.itis.gui.utils.GuiConst;
 import ru.itis.gui.utils.Loader;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,11 +86,17 @@ public class GuiManager {
     }
 
     public void showRoundResults(List<Player> players) {
-        mainJPanel.showResults(players, false);
+        showResults(players, false);
     }
 
     public void showFinalResults(List<Player> players) {
-        mainJPanel.showResults(players, true);
+        showResults(players, true);
+    }
+
+    private void showResults(List<Player> players, boolean flag){
+        window.getMainFrame().getContentPane().remove(window.getMainFrame().getContentPane().getComponent(0));
+        window.getMainFrame().getContentPane().add(mainJPanel);
+        mainJPanel.showResults(players, flag);
     }
 
     public void showNotEnoughMoney(int price){
