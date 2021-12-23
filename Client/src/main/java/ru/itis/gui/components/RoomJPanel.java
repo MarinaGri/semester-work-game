@@ -23,6 +23,7 @@ import static ru.itis.gui.utils.GuiConst.DIMENSION;
 
 @Getter
 public class RoomJPanel extends JPanel {
+    private boolean isReady;
     private RoomPlayersJPanel playersJPanel;
     private List<Player> players;
     private JPanel bottom;
@@ -43,11 +44,6 @@ public class RoomJPanel extends JPanel {
         this.removeAll();
         this.add(new RoomPlayersJPanel(playerList), BorderLayout.CENTER);
 
-        if(players != null) {
-            for (Player player : playerList) {
-                System.out.println(player);
-            }
-        }
         JButton button = new JButton("Выйти из комнаты");
         button.addActionListener(e -> {
             this.removeAll();
@@ -78,12 +74,14 @@ public class RoomJPanel extends JPanel {
 
         bottom.add(button);
         this.add(bottom, BorderLayout.PAGE_END);
+        if(isReady) addReadyButton();
 
         this.validate();
         this.repaint();
     }
 
     public void addReadyButton(){
+        isReady = true;
         JButton button = new JButton("Ready!");
         Dimension bSize = new Dimension(DIMENSION.width/7, DIMENSION.height/20);
         button.setPreferredSize(bSize);
@@ -103,7 +101,7 @@ public class RoomJPanel extends JPanel {
             changePlayers(players);
 
             try {
-                connection.sendMessage(new Message(Constants.READY_RESPONSE, new byte[0]));
+                connection.sendMessage(new Message(Constants.READY_RESPONSE));
             } catch (IOException ioException) {
                 JOptionPane.showInternalMessageDialog(null, "Не удалось совершить действие");
             }
