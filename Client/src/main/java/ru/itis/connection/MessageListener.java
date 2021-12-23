@@ -6,7 +6,6 @@ import ru.itis.general.entities.Car;
 import ru.itis.general.entities.Player;
 import ru.itis.general.helpers.*;
 import ru.itis.gui.GuiManager;
-import ru.itis.gui.components.CarShopJPanel;
 import ru.itis.protocol.Message;
 import ru.itis.protocol.MessageInputStream;
 
@@ -42,7 +41,9 @@ public class MessageListener implements Runnable{
                         break;
                     }
                     case SUCCESS_NICKNAME:{
-                        connection.getPlayer().setNickname(parser.deserializeMessage(message.getData()));
+                        Player player = connection.getPlayer();
+                        player.setNickname(parser.deserializeMessage(message.getData()));
+                        player.setMoney(0);
                         guiManager.showEnterRoomButton();
                         break;
                     }
