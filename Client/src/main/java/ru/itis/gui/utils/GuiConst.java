@@ -10,8 +10,4 @@ public class GuiConst {
     public static final Color COLOR = new Color(220,193,138);
     public static final Color COLOR_COINS = new Color(255, 215, 0);
     public static final Integer[] prices = {10, 20 ,30};
-    public static final int WIDTH_CAR = 120;
-    public static final int HEIGHT_CAR = 200;
-    public static final int WIDTH_WHEEL = 35;
-    public static final int HEIGHT_WHEEL = 30;
  }

@@ -10,22 +10,29 @@ import ru.itis.gui.utils.GuiConst;
 @Setter
 public class RaceJPanel extends JPanelWithBackground {
 
-    private Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-    private int xForLeftWheels = (int) (dimension.getWidth()/2);
-    private int xForRightWheels = (int) (dimension.getWidth()/2 + GuiConst.WIDTH_CAR + GuiConst.WIDTH_WHEEL);
-    private int yForUpperWheels = (int) (dimension.getHeight()*3.5/4 - GuiConst.HEIGHT_CAR);
-    private int yForLowerWheels = (int) (dimension.getHeight()*3.5/4 - GuiConst.HEIGHT_CAR + GuiConst.HEIGHT_WHEEL*(GuiConst.HEIGHT_CAR/GuiConst.HEIGHT_WHEEL));
-    private int xForCar = (int) dimension.getWidth()/2 + GuiConst.WIDTH_WHEEL;
-    private int yForCar = (int) dimension.getHeight() - GuiConst.HEIGHT_CAR;
-    private int xForCoin = (int) dimension.getWidth()/2;
-    private int yForCoin = 0;
+    private int xForCar;
+    private int yForCar;
+    private int xForOtherCar;
+    private int yForOtherCar;
+    private int xForCoin;
+    private int yForCoin;
+    private int offsetX;
+    private int offsetY;
+    private int widthWheel;
+    private int heightWheel;
+    private int widthCar;
+    private int heightCar;
+    private int xForTree;
+    private int yForTree;
     private Graphics2D car;
     private Graphics2D carWheel;
     private Graphics2D coin;
+    private Dimension dimension;
 
 
     public RaceJPanel(Image image) {
         super(image);
+        dimension = Toolkit.getDefaultToolkit().getScreenSize();
         this.setBackground(GuiConst.COLOR);
         Dimension thisSize = new Dimension(dimension.width/4, dimension.height/4);
         this.setPreferredSize(dimension);
@@ -34,57 +41,64 @@ public class RaceJPanel extends JPanelWithBackground {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        carWheel = (Graphics2D) g;
-        carWheel.setColor(Color.red);
+        carWheel = (Graphics2D) g.create();
+        carWheel.setColor(Color.darkGray);
 
-//        if (count == 0){
-//            count++;
-//            System.out.println(count);
-//
-//            carWheel.drawOval(getWidth() / 2, getHeight() - HEIGHT_CAR, WIDTH_WHEEL, HEIGHT_WHEEL);
-//            carWheel.fillOval(getWidth() / 2, getHeight() - HEIGHT_CAR, WIDTH_WHEEL, HEIGHT_WHEEL); //левое верхнее
-//            carWheel.drawOval(getWidth() / 2, getHeight() - HEIGHT_CAR + HEIGHT_WHEEL * (HEIGHT_CAR / HEIGHT_WHEEL), WIDTH_WHEEL, HEIGHT_WHEEL);
-//            carWheel.fillOval(getWidth() / 2, getHeight() - HEIGHT_CAR + HEIGHT_WHEEL * (HEIGHT_CAR / HEIGHT_WHEEL), WIDTH_WHEEL, HEIGHT_WHEEL);//левое нижнее
-//            carWheel.drawOval(getWidth() / 2 + WIDTH_CAR + WIDTH_WHEEL, getHeight() - HEIGHT_CAR + HEIGHT_WHEEL * (HEIGHT_CAR / HEIGHT_WHEEL), WIDTH_WHEEL, HEIGHT_WHEEL);
-//            carWheel.fillOval(getWidth() / 2 + WIDTH_CAR + WIDTH_WHEEL, getHeight() - HEIGHT_CAR + HEIGHT_WHEEL * (HEIGHT_CAR / HEIGHT_WHEEL), WIDTH_WHEEL, HEIGHT_WHEEL);//правое нижнее
-//            carWheel.drawOval(getWidth() / 2 + WIDTH_CAR + WIDTH_WHEEL, getHeight() - HEIGHT_CAR, WIDTH_WHEEL, HEIGHT_WHEEL);
-//            carWheel.fillOval(getWidth() / 2 + WIDTH_CAR + WIDTH_WHEEL, getHeight() - HEIGHT_CAR, WIDTH_WHEEL, HEIGHT_WHEEL);//правое верхнее
-//
-//        } else {
-        carWheel.drawOval(xForLeftWheels, yForUpperWheels, GuiConst.WIDTH_WHEEL, GuiConst.HEIGHT_WHEEL);
-        carWheel.fillOval(xForLeftWheels, yForUpperWheels, GuiConst.WIDTH_WHEEL, GuiConst.HEIGHT_WHEEL); //левое верхнее
-        carWheel.drawOval(xForLeftWheels, yForLowerWheels, GuiConst.WIDTH_WHEEL, GuiConst.HEIGHT_WHEEL);
-        carWheel.fillOval(xForLeftWheels, yForLowerWheels, GuiConst.WIDTH_WHEEL, GuiConst.HEIGHT_WHEEL);//левое нижнее
-        carWheel.drawOval(xForRightWheels, yForLowerWheels, GuiConst.WIDTH_WHEEL,GuiConst. HEIGHT_WHEEL);
-        carWheel.fillOval(xForRightWheels, yForLowerWheels, GuiConst.WIDTH_WHEEL, GuiConst.HEIGHT_WHEEL);//правое нижнее
-        carWheel.drawOval(xForRightWheels, yForUpperWheels, GuiConst.WIDTH_WHEEL, GuiConst.HEIGHT_WHEEL);
-        carWheel.fillOval(xForRightWheels, yForUpperWheels, GuiConst.WIDTH_WHEEL, GuiConst.HEIGHT_WHEEL);
-//        }
+        heightCar = getHeight()/4;
+        widthCar = getWidth()/12;
 
+        widthWheel = getWidth()/25;
+        heightWheel = getHeight()/25;
 
-        car = (Graphics2D) g;
+        carWheel.fillOval(getWidth() / 2 + offsetX, getHeight()  + offsetY -getHeight()/4, widthWheel, heightWheel); //левое верхнее
+        carWheel.fillOval(getWidth() / 2 + offsetX, getHeight() - heightCar +  offsetY + heightWheel * (yForCar / heightWheel), widthWheel, heightWheel);//левое нижнее);
+        carWheel.fillOval(getWidth() / 2 + offsetX + widthCar + widthWheel, getHeight()  + offsetY - heightCar + heightWheel * (heightCar / heightWheel), widthWheel, heightWheel);//правое нижнее);
+        carWheel.fillOval(getWidth() / 2 + offsetX + widthCar + widthWheel, getHeight()  + offsetY - heightCar, widthWheel, heightWheel);//правое верхнее);
+        carWheel.dispose();
+
+        xForCar = getWidth()/2 + widthWheel + offsetX;
+        yForCar = getHeight() - getHeight()/4 + offsetY;
+
+        car = (Graphics2D) g.create();
         car.setColor(Color.black);
-        car.drawRect(xForCar, yForCar, GuiConst.WIDTH_CAR, GuiConst.HEIGHT_CAR);
-        car.fillRect(xForCar, yForCar, GuiConst.WIDTH_CAR, GuiConst.HEIGHT_CAR);
+        car.drawRect(xForCar, yForCar, widthCar, heightCar);
+        car.fillRect(xForCar, yForCar, widthCar, heightCar);
+        car.dispose();
 
-        coin = (Graphics2D) g;
-        coin.setColor(Color.YELLOW);
+        coin = (Graphics2D) g.create();
+        coin.setColor(GuiConst.COLOR_COINS);
 
-        coin.drawOval(xForCoin, yForCoin, 20, 20);
-        coin.fillOval(xForCoin, yForCoin, 20, 20);
+        int radiusForCoin = getWidth()/30;
+        coin.fillOval( xForCoin, yForCoin, radiusForCoin, radiusForCoin);
+        coin.dispose();
+
+        Graphics2D tree = (Graphics2D)  g.create();
+
+        int widthTree = getWidth();
+        tree.setColor(Color.GREEN);
+        int radius = getWidth()/20;
+
+        tree.fillOval((widthTree / 4) - radius, yForTree - (radius * 2), radius * 2, radius * 2);
+        tree.fillOval((widthTree / 4) - radius, yForTree - radius, radius * 2, radius * 2);
+        tree.fillOval((widthTree / 4) - (radius * 2), yForTree - radius, radius * 2, radius * 2);
+        tree.fillOval((widthTree / 4), yForTree - radius, radius * 2, radius * 2);
+        tree.dispose();
+
+        Graphics2D otherCarWheel = (Graphics2D) g.create();
+        otherCarWheel.setColor(Color.darkGray);
+        xForOtherCar = getWidth()/2;
+
+        otherCarWheel.fillOval(xForOtherCar, yForOtherCar, widthWheel, heightWheel); //левое верхнее
+        otherCarWheel.fillOval(xForOtherCar, yForOtherCar + heightCar, widthWheel, heightWheel);//левое нижнее
+        otherCarWheel.fillOval(xForOtherCar + widthCar + widthWheel, yForOtherCar + heightCar, widthWheel, heightWheel);//правое нижнее
+        otherCarWheel.fillOval(xForOtherCar + widthCar + widthWheel, yForOtherCar , widthWheel, heightWheel);//правое верхнее
+        otherCarWheel.dispose();
+
+        Graphics2D otherCar = (Graphics2D) g.create();
+        otherCar.setColor(Color.lightGray);
+        otherCar.drawRect(xForOtherCar + widthWheel , yForOtherCar ,  widthCar, heightCar);
+        otherCar.fillRect(xForOtherCar + widthWheel, yForOtherCar,  getWidth()/12, heightCar);
+
     }
 
-    public void paintX(int x) {
-        setXForLeftWheels(getXForLeftWheels() + x);
-        setXForRightWheels(getXForRightWheels() + x);
-        this.validate();
-        this.repaint();
-    }
-
-    public void paintY(int y) {
-        setYForUpperWheels(getYForUpperWheels() + y);
-        setYForLowerWheels(getYForLowerWheels() + y);
-        this.validate();
-        this.repaint();
-    }
 }

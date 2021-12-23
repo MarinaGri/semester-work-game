@@ -10,8 +10,6 @@ import java.awt.event.KeyListener;
 public class KeyListenerForCar implements KeyListener {
 
     private RaceJPanel panelWithCar;
-    private Graphics2D carWheel;
-    private Graphics2D car;
 
     public KeyListenerForCar(JPanel panel) {
         this.panelWithCar = (RaceJPanel) panel;
@@ -24,25 +22,16 @@ public class KeyListenerForCar implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent event) {
-        carWheel = panelWithCar.getCarWheel();
-        car = panelWithCar.getCar();
+
         if ((event.getKeyCode() == KeyEvent.VK_A)) {
-            panelWithCar.paintX(-5);
+            panelWithCar.setOffsetX(-5);
         } else {
             if ((event.getKeyCode() == KeyEvent.VK_D)) {
-                panelWithCar.paintX(5);
+                panelWithCar.setOffsetX(5);
             }
-//            else {
-//                if ((event.getKeyCode() == KeyEvent.VK_W)) {
-//
-//                } else {
-//                    if ((event.getKeyCode() == KeyEvent.VK_S)) {
-//
-//
-//                    }
-//                }
-//            }
         }
+
+        panelWithCar.validate();
         panelWithCar.repaint();
     }
 
