@@ -6,6 +6,7 @@ import ru.itis.general.entities.Car;
 import ru.itis.general.entities.Player;
 import ru.itis.general.helpers.*;
 import ru.itis.gui.GuiManager;
+import ru.itis.gui.components.CarShopJPanel;
 import ru.itis.protocol.Message;
 import ru.itis.protocol.MessageInputStream;
 
@@ -67,7 +68,7 @@ public class MessageListener implements Runnable{
                         break;
                     }
                     case FAIL_SET_DESIGN:{
-                        guiManager.showNotEnoughMoney(Integer.parseInt(parser.deserializeMessage(message.getData())));
+                        guiManager.showNotEnoughMoney(carParser.deserializeObject(message.getData()).getPrice());
                         break;
                     }
                     case SUCCESS_SET_DESIGN:{
@@ -75,6 +76,7 @@ public class MessageListener implements Runnable{
                         Car car = carParser.deserializeObject(message.getData());
                         player.setMoney(player.getMoney() - car.getPrice());
                         player.setCar(car);
+                        guiManager.showCarShop(player, null);
                         break;
                     }
                 }

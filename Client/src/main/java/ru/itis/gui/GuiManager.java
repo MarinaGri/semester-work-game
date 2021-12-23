@@ -32,7 +32,11 @@ public class GuiManager {
     }
 
     public void showCarShop(Player player, List<Car> cars){
-        mainJPanel.showCarShop(player, cars);
+        if(cars == null){
+            mainJPanel.showCarShop(player, mainJPanel.getCarShopJPanel().getCars());
+        } else {
+            mainJPanel.showCarShop(player, cars);
+        }
     }
 
     public void showRoundResults(List<Player> players) {
