@@ -10,15 +10,18 @@ import java.util.List;
 @Setter
 public class Room {
     public static final int MAX_PLAYERS = 6;
+    public static final int FAIL_USERS = 2;
     protected boolean started;
 
     protected List<Player> players;
     protected int currentNumberOfResults;
+    protected int currentRound;
 
     public Room(){
         started = true;
         players = new ArrayList<>();
         currentNumberOfResults = 0;
+        currentRound = 0;
     }
 
     public boolean addPlayer(Player player){

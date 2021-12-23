@@ -37,7 +37,36 @@ public class ResultListener extends AbstractServerEventListener{
                     .sorted(Comparator.comparingInt(Player::getResult))
                     .collect(Collectors.toList());
 
-//установить result 0
+            Message toClient = new Message(Constants.GAME_OVER,
+                    playerParser.serializeObject(players));
+            server.sendMulticastMessage(room, toClient);
+
+            if (players.size() == 1 || room.getCurrentRound() == 3){
+                toClient = new Message(Constants.FINAL_GAME_OVER,
+                        playerParser.serializeObject(players));
+                server.sendMulticastMessage(room, toClient);
+            }
+
+            sendMessageFailedUsers(room, players);
+            room.setCurrentNumberOfResults(0);
+        }
+    }
+
+    private void sendMessageFailedUsers(Room room, List<Player> players){
+        Integer indexFailedUser = Room.MAX_PLAYERS - Room.FAIL_USERS*room.getCurrentRound();
+
+        if (players.size() != 1 && players.size() > indexFailedUser){
+            Player player = players.get(indexFailedUser);
+
+            Message toClient = new Message(Constants.YOU_LOOSER);
+            server.sendMessage(server.getConnectionById(player.getId()), toClient);
+        }
+
+        if (players.size() > (indexFailedUser + 1)) {
+            Player player = players.get(indexFailedUser + 1);
+
+            Message toClient = new Message(Constants.YOU_LOOSER);
+            server.sendMessage(server.getConnectionById(player.getId()), toClient);
         }
     }
 }
