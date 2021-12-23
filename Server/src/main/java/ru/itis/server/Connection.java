@@ -28,8 +28,6 @@ public class Connection implements Runnable{
 
     protected Player player;
 
-    protected List<IServerEventListener> listeners;
-
     public Connection(IServer server, Socket socket) throws IOException{
         this.id = count++;
         this.server = server;
