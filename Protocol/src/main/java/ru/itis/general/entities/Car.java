@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Car {
     protected String color;
-    protected int price;
+    protected Integer price;
 }

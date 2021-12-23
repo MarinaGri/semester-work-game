@@ -25,6 +25,7 @@ public class EntranceServerListener extends AbstractServerEventListener{
                     .id(connection.getId())
                     .status(false)
                     .nickname(name)
+                    .money(0)
                     .build();
 
             connection.setPlayer(player);

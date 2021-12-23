@@ -16,12 +16,23 @@ public class Player {
 
     protected Integer time;
     protected Integer result;
+  
     protected Integer money;
     protected Car car;
+
     protected transient Room room;
 
     public void exitRoom(){
-        room.deletePlayer(this);
-        room = null;
+        if (room != null) {
+            room.deletePlayer(this);
+            room = null;
+        }
+    }
+
+    public boolean inRoom(){
+        if (room == null){
+            return false;
+        }
+        return true;
     }
 }
