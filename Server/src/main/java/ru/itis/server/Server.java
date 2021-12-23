@@ -1,10 +1,10 @@
 package ru.itis.server;
 
-import ru.itis.exceptions.IllegalMessageTypeException;
-import ru.itis.exceptions.IllegalProtocolVersionException;
 import ru.itis.exceptions.ServerAlreadyStartException;
+import ru.itis.general.entities.Car;
 import ru.itis.general.entities.Player;
 import ru.itis.general.entities.Room;
+import ru.itis.general.helpers.PlayerParser;
 import ru.itis.protocol.Constants;
 import ru.itis.protocol.Message;
 import ru.itis.listeners.IServerEventListener;
@@ -14,6 +14,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.rmi.ServerException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -27,17 +28,20 @@ public class Server implements IServer{
     protected static List<Connection> connections;
 
     protected List<Room> rooms;
+    protected List<Car> availableCars;
 
     public Server(int port){
         this.port = port;
         started = false;
         listeners = new ArrayList<>();
         connections = new ArrayList<>();
-        rooms = new ArrayList<>();
     }
 
     @Override
     public void start() throws ServerException {
+        rooms = new ArrayList<>();
+        initAvailableCars();
+
         try{
             server = new ServerSocket(this.port);
             started = true;
@@ -62,6 +66,16 @@ public class Server implements IServer{
         catch(IOException ex){
             throw new ServerException("Problem with handling connection.", ex);
         }
+    }
+
+    protected void initAvailableCars(){
+        availableCars = new ArrayList<>();
+
+        availableCars.add(new Car("red", 10));
+        availableCars.add(new Car("green", 15));
+        availableCars.add(new Car("blue", 30));
+        availableCars.add(new Car("yellow", 20));
+        availableCars.add(new Car("black", 50));
     }
 
     @Override
@@ -96,7 +110,7 @@ public class Server implements IServer{
     }
 
     @Override
-    public void sendBroadCastMessage(Room room, Message message){
+    public void sendMulticastMessage(Room room, Message message){
         List<Player> players = room.getPlayers();
 
         for (Connection connection: connections){
@@ -130,11 +144,23 @@ public class Server implements IServer{
             Connection conn = iterator.next();
 
             if (connection.getId() == conn.getId()){
-                Player player = connection.getPlayer();
-                player.exitRoom();
-
+                handleRemovePlayer(connection.getPlayer());
                 iterator.remove();
             }
+        }
+    }
+
+    protected void handleRemovePlayer(Player player){
+        PlayerParser parser = new PlayerParser();
+
+        if (player.inRoom()){
+            Room room = player.getRoom();
+            player.exitRoom();
+
+            Message message =  new Message(Constants.SUCCESS_EXIT_ROOM,
+                    parser.serializeObject(room.getPlayers()));
+
+            sendMulticastMessage(room, message);
         }
     }
 
@@ -159,5 +185,10 @@ public class Server implements IServer{
     @Override
     public List<IServerEventListener> getListeners() {
         return listeners;
+    }
+
+    @Override
+    public List<Car> getAvailableCars() {
+        return availableCars;
     }
 }

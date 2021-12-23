@@ -5,6 +5,7 @@ import ru.itis.connection.Connection;
 import ru.itis.general.entities.Player;
 import ru.itis.general.helpers.MessageParser;
 import ru.itis.general.helpers.TextParser;
+import ru.itis.gui.listeners.EnterStoreListener;
 import ru.itis.gui.utils.ConnectionWrapper;
 import ru.itis.gui.utils.GuiConst;
 import ru.itis.gui.utils.Loader;
@@ -12,29 +13,27 @@ import ru.itis.protocol.Constants;
 import ru.itis.protocol.Message;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.itis.gui.utils.GuiConst.BLACK_BORDER;
+import static ru.itis.gui.utils.GuiConst.DIMENSION;
+
 @Getter
 public class RoomJPanel extends JPanel {
     private RoomPlayersJPanel playersJPanel;
-    private Dimension dimension;
     private List<Player> players;
     private JPanel bottom;
     private Font font;
 
     public RoomJPanel() {
         playersJPanel = new RoomPlayersJPanel(new ArrayList<>());
-        dimension = Toolkit.getDefaultToolkit().getScreenSize();
 
         setEmptyRoom();
 
-        Dimension thisSize = new Dimension(dimension.width/2, dimension.height - dimension.height/3);
+        Dimension thisSize = new Dimension(DIMENSION.width/2, DIMENSION.height - DIMENSION.height/3);
         this.setMinimumSize(thisSize);
         this.setMaximumSize(thisSize);
     }
@@ -72,7 +71,7 @@ public class RoomJPanel extends JPanel {
         bottom.removeAll();
         button.setFont(font);
 
-        Dimension bSize = new Dimension(dimension.width/5, dimension.height/20);
+        Dimension bSize = new Dimension(DIMENSION.width/5, DIMENSION.height/20);
         button.setPreferredSize(bSize);
         button.setBackground(Color.RED);
         button.setForeground(Color.WHITE);
@@ -86,7 +85,7 @@ public class RoomJPanel extends JPanel {
 
     public void addReadyButton(){
         JButton button = new JButton("Ready!");
-        Dimension bSize = new Dimension(dimension.width/7, dimension.height/20);
+        Dimension bSize = new Dimension(DIMENSION.width/7, DIMENSION.height/20);
         button.setPreferredSize(bSize);
         button.setBackground(Color.RED);
         button.setForeground(Color.WHITE);
@@ -117,7 +116,7 @@ public class RoomJPanel extends JPanel {
     }
 
     public void setEmptyRoom(){
-        this.setBorder(new LineBorder(Color.BLACK, 3));
+        this.setBorder(BLACK_BORDER);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.setBackground(GuiConst.COLOR);
@@ -125,7 +124,7 @@ public class RoomJPanel extends JPanel {
 
         this.add(new RoomPlayersJPanel(new ArrayList<>()));
 
-        font = Loader.loadFont("default.otf").deriveFont(dimension.height/30f);
+        font = Loader.loadFont("default.otf").deriveFont(DIMENSION.height/30f);
         JButton button = new JButton("Присоединиться к комнате");
         button.setFont(font);
         button.addActionListener(e -> {
@@ -141,12 +140,23 @@ public class RoomJPanel extends JPanel {
         bottom.setBackground(GuiConst.COLOR);
         bottom.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        Dimension bSize = new Dimension(dimension.width/4, dimension.height/20);
+        Dimension bSize = new Dimension(DIMENSION.width/4, DIMENSION.height/20);
         button.setPreferredSize(bSize);
         button.setBackground(Color.RED);
         button.setForeground(Color.WHITE);
 
+
+        Dimension shSize = new Dimension(DIMENSION.width/8, DIMENSION.height/20);
+        JButton shop = new JButton("Магазин");
+        shop.addActionListener(new EnterStoreListener());
+        shop.setFont(font);
+        shop.setPreferredSize(shSize);
+        shop.setBackground(Color.RED);
+        shop.setForeground(Color.WHITE);
+
+        bottom.add(shop);
         bottom.add(button);
+
         this.add(bottom, BorderLayout.PAGE_END);
     }
 }

@@ -28,6 +28,18 @@ public abstract class AbstractServerEventListener implements IServerEventListene
                 return new EntranceServerListener();
             case JOIN_ROOM:
                 return new JoinRoomListener();
+            case CHOOSE_DESIGN:
+                return new ChooseDesignListener();
+            case EXIT_ROOM:
+                return new ExitRoomListener();
+            case READY_RESPONSE:
+                return new ReadyResponseListener();
+            case GET_CARS:
+                return new GetCarsListener();
+            case GAME_STARTED:
+                return new GameStartedListener();
+            case RESULT:
+                return new ResultListener();
             default: throw new IllegalArgumentException("Illegal type of listener");
         }
     }
