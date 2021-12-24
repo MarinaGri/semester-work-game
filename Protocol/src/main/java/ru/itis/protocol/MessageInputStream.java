@@ -19,10 +19,10 @@ public class MessageInputStream extends InputStream {
         this.vector = Constants.getVectorTypes();
     }
 
-    //первые 2 байта - цифра до точки в версии протокола и цифра после,
-    //чтобы проверить корректность сообщения
-    //3 байт - тип
-    //4, 5 - длина тела
+    // the first 2 bytes are a digit before the dot in the protocol version and a digit after,
+    // to check the correctness of the message
+    // 3 byte - type
+    // 4, 5 - body length
     public Message readMessage() throws IOException, IllegalProtocolVersionException, IllegalMessageTypeException {
         int firstByte = inputStream.read();
 

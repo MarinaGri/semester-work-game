@@ -3,28 +3,27 @@ package ru.itis.protocol;
 import java.lang.reflect.Field;
 
 /**
- * тип сообщения занимает 1 байт
- * сообщения от сервера начинаются с 00: 0-63
- * сообщения от клиента с 01: 64-127
- *
- * вход - ENTRANCE
- * некорректное имя - INVALID_NICKNAME
- * конец раунда - END_ROUND
- * ошибки - ERROR(+ее тип)
- * готовность игрока вопрос сервера - READY_REQUEST
- * ответ - READY_RESPONSE
- * все готовы - ALL_READY
- * выбор типа игры - TYPE_GAME
- * ответ для всех игроков(таблица результатов) - RESULTS
- * создание комнаты - CREATE_ROOM
- * выход из комнаты - EXIT_ROOM
- * выход из игры - EXIT
- * выбор дизайна - CHOOSE_DESIGN
- * установка дизайна - SET_DESIGN
- * конец игры - FINAL_GAME_OVER
- * ответ выбывшему игроку - GAME_OVER
- * пинг - PING
- * понг - PONG
+    * message type takes 1 byte
+    * messages from the server start at 00: 0-63
+    * messages from the client from 01: 64-127
+    *
+    * entrance - ENTRANCE
+    * invalid name - INVALID_NICKNAME
+    * end of round - END_ROUND
+    * errors - ERROR (+ its type)
+    * player readiness, server question - READY_REQUEST
+    * answer - READY_RESPONSE
+    * all ready - ALL_READY
+    * choice of game type - TYPE_GAME
+    * answer for all players (table of results) - RESULTS
+    * room creation - CREATE_ROOM
+    * exit from the room - EXIT_ROOM
+    * exit from the game - EXIT
+    * design choice - CHOOSE_DESIGN
+    * design setting - SET_DESIGN
+    * end of the game - FINAL_GAME_OVER
+    * ping - PING
+    * pong - PONG
  */
 
 public class Constants {
@@ -59,8 +58,8 @@ public class Constants {
     public static final byte GET_CARS = 71;
     public static final byte RESULT = 72;
 
-    //возвращает характеристический вектор типов сообщений
-    //элемент true => сообщение с таким типом есть
+    // returns a characteristic vector of message types
+    // element true => there is a message with this type
     public static boolean[] getVectorTypes(){
         boolean[] vector = new boolean[127];
         for(Field field: Constants.class.getDeclaredFields()){
