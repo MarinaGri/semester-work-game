@@ -7,6 +7,7 @@ import ru.itis.general.entities.Player;
 import ru.itis.general.helpers.*;
 import ru.itis.gui.GuiManager;
 
+import ru.itis.gui.utils.ConnectionWrapper;
 import ru.itis.protocol.Message;
 import ru.itis.protocol.MessageInputStream;
 

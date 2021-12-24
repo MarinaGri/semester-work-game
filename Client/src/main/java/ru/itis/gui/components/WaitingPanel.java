@@ -15,6 +15,7 @@ import java.io.IOException;
 import static ru.itis.gui.utils.GuiConst.*;
 
 public class WaitingPanel extends JPanelWithBackground{
+    private Dimension dimension;
 
     public WaitingPanel(Image image, boolean flag) {
         super(image, flag);

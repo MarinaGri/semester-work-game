@@ -43,14 +43,23 @@ public class ResultListener extends AbstractServerEventListener {
                     playerParser.serializeObject(players));
             server.sendMulticastMessage(room, toClient);
 
-            if (players.size() == 1 || room.getCurrentRound() == 3){
-                toClient = new Message(Constants.FINAL_GAME_OVER,
-                        playerParser.serializeObject(players));
-                server.sendMulticastMessage(room, toClient);
-            }
-
             sendMessageFailedUsers(room, players);
             room.setCurrentNumberOfResults(0);
+
+            try{
+                Thread.sleep(5000);
+            }catch (InterruptedException e){
+
+            }finally {
+                if (players.size() == 1 || room.getCurrentRound() == 3){
+                    toClient = new Message(Constants.FINAL_GAME_OVER,
+                            playerParser.serializeObject(players));
+                    server.sendMulticastMessage(room, toClient);
+                }else {
+                    toClient = new Message(Constants.ALL_READY);
+                    server.sendMulticastMessage(room, toClient);
+                }
+            }
         }
     }
 

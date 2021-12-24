@@ -63,7 +63,7 @@ public class GuiManager {
         timers.add(new Timer(1, e -> {
             if (collisionListener.hasCollision) {
                 stopTimers();
-                JOptionPane.showInternalMessageDialog(window.getMainFrame().getContentPane(), "You're loh");
+                //JOptionPane.showInternalMessageDialog(window.getMainFrame().getContentPane(), "You're loh");
                 showWaitingPanel();
             }
         }));
