@@ -89,7 +89,7 @@ public class Server implements IServer{
                 .image("green_kia")
                 .carColor(new Color(47, 79, 78))
                 .wheelColor(new Color(0, 0, 0))
-                .price(10)
+                .price(20)
                 .build());
     }
 
