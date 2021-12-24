@@ -6,9 +6,9 @@ import ru.itis.general.entities.Car;
 import ru.itis.general.entities.Player;
 import ru.itis.general.helpers.*;
 import ru.itis.gui.GuiManager;
-
 import ru.itis.protocol.Message;
 import ru.itis.protocol.MessageInputStream;
+
 import java.io.IOException;
 
 import static ru.itis.protocol.Constants.*;
@@ -41,19 +41,16 @@ public class MessageListener implements Runnable{
                         break;
                     }
                     case SUCCESS_NICKNAME:{
-                        Player player = connection.getPlayer();
-                        player.setNickname(parser.deserializeMessage(message.getData()));
-                        player.setMoney(0);
+                        connection.getPlayer().setNickname(parser.deserializeMessage(message.getData()));
                         guiManager.showEnterRoomButton();
                         break;
                     }
                     case SUCCESS_JOIN_ROOM:
-                    case SUCCESS_READY:
                     case SUCCESS_EXIT_ROOM: {
                         guiManager.changePlayersInRoom(playerParser.deserializeObjects(message.getData()));
                         break;
                     }
-                    case READY_REQUEST: {
+                    case READY_REQUEST:{
                         guiManager.addReadyButton();
                         break;
                     }
@@ -70,7 +67,7 @@ public class MessageListener implements Runnable{
                         break;
                     }
                     case FAIL_SET_DESIGN:{
-                        guiManager.showNotEnoughMoney(carParser.deserializeObject(message.getData()).getPrice());
+                        guiManager.showNotEnoughMoney(Integer.parseInt(parser.deserializeMessage(message.getData())));
                         break;
                     }
                     case SUCCESS_SET_DESIGN:{
@@ -78,27 +75,7 @@ public class MessageListener implements Runnable{
                         Car car = carParser.deserializeObject(message.getData());
                         player.setMoney(player.getMoney() - car.getPrice());
                         player.setCar(car);
-                        guiManager.changeCarColor(player.getCar().getCarColor(), player.getCar().getWheelColor());
-                        guiManager.showCarShop(player, null);
                         break;
-                    }
-                    case ALL_READY: {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-
-                            JOptionPane.showInternalMessageDialog(null, "Не удалось запустить игру");
-                        }
-                        guiManager.showRace(connection.getPlayer());
-                        guiManager.startTimers();
-                        break;
-                    }
-                    case YOU_LOOSER: {
-
-                        guiManager.showPaneForLooser();
-                    }
-                    case ROUND_END: {
-                        guiManager.showRoundEnd();
                     }
                 }
             }

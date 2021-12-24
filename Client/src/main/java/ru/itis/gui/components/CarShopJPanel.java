@@ -24,7 +24,7 @@ public class CarShopJPanel extends JPanel {
         font = Loader.loadFont("default.otf").deriveFont(DIMENSION.height/20f);
         this.setBackground(COLOR);
         this.setLayout(new BorderLayout());
-        JPanel panel = new JPanelWithBackground(Loader.loadImg("monetka.png"), true);
+        JPanel panel = new JPanelWithBackground(Loader.loadImg("monetka.png"));
         panel.setPreferredSize(new Dimension(DIMENSION.height/20, DIMENSION.height/20));
 
         JPanel top = new JPanel();
@@ -54,18 +54,17 @@ public class CarShopJPanel extends JPanel {
         constraints.gridheight = 1;
         constraints.fill = GridBagConstraints.BOTH;
 
-        int i = 0;
-        for(Car car: cars){
-            constraints.gridx = i++;
+        for(int i = 0; i < 3; i++){
+            constraints.gridx = i;
 
-            JButton button = new JButton(String.valueOf(car.getPrice()));
+            JButton button = new JButton(String.valueOf(cars.get(i).getPrice()));
             button.setBorder(carBorder);
             button.addActionListener(e ->{
                 int price = Integer.parseInt(button.getText());
                 showFrame(player.getMoney() >= price, price);
             });
             button.setBackground(COLOR);
-            button.add(new JPanelWithBackground(Loader.loadImg(car.getImage() + ".jpeg"), true));
+            button.add(new JPanelWithBackground(Loader.loadImg(i + ".png")));
             button.setPreferredSize(new Dimension(DIMENSION.width/6, DIMENSION.height/5));
             carsPanel.add(button, constraints);
         }
@@ -73,11 +72,10 @@ public class CarShopJPanel extends JPanel {
         constraints.weighty = 0.3;
         constraints.anchor = GridBagConstraints.NORTH;
 
-        int j = 0;
-        for(Car car: cars){
-            constraints.gridx = j++;
+        for(int i = 0; i < 3; i++){
+            constraints.gridx = i;
 
-            JLabel price = new JLabel(String.valueOf(car.getPrice()));
+            JLabel price = new JLabel(String.valueOf(cars.get(i).getPrice()));
             price.setFont(font);
             carsPanel.add(price, constraints);
         }

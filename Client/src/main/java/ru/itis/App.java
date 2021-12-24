@@ -15,6 +15,5 @@ public class App {
         Thread game = new Thread(messageListener);
         game.start();
         window.createGUI();
-
     }
 }
