@@ -13,3 +13,4 @@ public class IllegalMessageTypeException extends RuntimeException{
         super(message, cause);
     }
 }
+

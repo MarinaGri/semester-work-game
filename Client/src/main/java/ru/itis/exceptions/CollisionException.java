@@ -18,3 +18,4 @@ public class CollisionException extends Exception{
         super(cause);
     }
 }
+

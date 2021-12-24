@@ -7,8 +7,11 @@ import ru.itis.general.entities.Player;
 import ru.itis.general.helpers.*;
 import ru.itis.gui.GuiManager;
 
+import ru.itis.gui.utils.ConnectionWrapper;
 import ru.itis.protocol.Message;
 import ru.itis.protocol.MessageInputStream;
+
+import javax.swing.*;
 import java.io.IOException;
 
 import static ru.itis.protocol.Constants.*;
@@ -61,7 +64,7 @@ public class MessageListener implements Runnable{
                         guiManager.showCarShop(connection.getPlayer(), carParser.deserializeObjects(message.getData()));
                         break;
                     }
-                    case RESULTS:{
+                    case GAME_OVER:{
                         guiManager.showRoundResults(playerParser.deserializeObjects(message.getData()));
                         break;
                     }
@@ -86,15 +89,14 @@ public class MessageListener implements Runnable{
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {
-
                             JOptionPane.showInternalMessageDialog(null, "Не удалось запустить игру");
                         }
+                        connection.sendMessage(new Message(GAME_STARTED));
                         guiManager.showRace(connection.getPlayer());
                         guiManager.startTimers();
                         break;
                     }
                     case YOU_LOOSER: {
-
                         guiManager.showPaneForLooser();
                     }
                     case ROUND_END: {
@@ -107,3 +109,4 @@ public class MessageListener implements Runnable{
         }
     }
 }
+

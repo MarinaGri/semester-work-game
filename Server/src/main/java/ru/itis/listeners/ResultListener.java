@@ -3,13 +3,14 @@ package ru.itis.listeners;
 import ru.itis.general.entities.Player;
 import ru.itis.general.entities.Room;
 import ru.itis.general.helpers.ObjectParser;
+import ru.itis.general.helpers.PlayerComparator;
 import ru.itis.general.helpers.PlayerParser;
 import ru.itis.listeners.general.AbstractServerEventListener;
 import ru.itis.protocol.Constants;
 import ru.itis.protocol.Message;
 import ru.itis.server.Connection;
 
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,32 +32,43 @@ public class ResultListener extends AbstractServerEventListener {
         player.setTime(player.getTime() + result.getTime());
         player.setResult(player.getResult() + result.getResult());
 
-        room.setCurrentNumberOfResults(room.getCurrentNumberOfResults() + 1);
+        int count = room.getCurrentNumberOfResults().incrementAndGet();
 
-        if (room.allResults()){
+        if (room.allResults(count)){
             List<Player> players = room.getPlayers().stream()
-                    .sorted(Comparator.comparingInt(Player::getResult))
+                    .sorted(new PlayerComparator())
                     .collect(Collectors.toList());
+            Collections.reverse(players);
 
             Message toClient = new Message(Constants.GAME_OVER,
                     playerParser.serializeObject(players));
             server.sendMulticastMessage(room, toClient);
 
-            if (players.size() == 1 || room.getCurrentRound() == 3){
-                toClient = new Message(Constants.FINAL_GAME_OVER,
-                        playerParser.serializeObject(players));
-                server.sendMulticastMessage(room, toClient);
-            }
-
             sendMessageFailedUsers(room, players);
-            room.setCurrentNumberOfResults(0);
+            room.getCurrentNumberOfResults().set(0);
+
+            try{
+                Thread.sleep(10000);
+            }catch (InterruptedException e){
+            }finally {
+                if (players.size() == 1 || room.getCurrentRound() == 3){
+                    toClient = new Message(Constants.FINAL_GAME_OVER,
+                            playerParser.serializeObject(players));
+                    server.sendMulticastMessage(room, toClient);
+                }else {
+                    toClient = new Message(Constants.ALL_READY);
+                    server.sendMulticastMessage(room, toClient);
+                }
+
+                room.setCurrentRound(room.getCurrentRound() + 1);
+            }
         }
     }
 
     private void sendMessageFailedUsers(Room room, List<Player> players){
         Integer indexFailedUser = Room.MAX_PLAYERS - Room.FAIL_USERS*room.getCurrentRound();
 
-        if (players.size() != 1 && players.size() > indexFailedUser){
+        if ((indexFailedUser != 0) && (players.size() != 1) && (players.size() > indexFailedUser)){
             Player player = players.get(indexFailedUser);
 
             Message toClient = new Message(Constants.YOU_LOOSER);
@@ -71,3 +83,4 @@ public class ResultListener extends AbstractServerEventListener {
         }
     }
 }
+

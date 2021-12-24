@@ -8,3 +8,4 @@ public interface IServerEventListener{
     public void handle(Connection connection, Message message);
     public byte getType();
 }
+

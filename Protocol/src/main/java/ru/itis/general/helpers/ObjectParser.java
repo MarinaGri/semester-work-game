@@ -9,3 +9,4 @@ public interface ObjectParser<T> {
     T deserializeObject(byte[] object);
     List<T> deserializeObjects(byte[] objects);
 }
+

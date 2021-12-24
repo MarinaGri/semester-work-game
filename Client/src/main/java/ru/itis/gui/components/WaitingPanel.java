@@ -27,26 +27,24 @@ public class WaitingPanel extends JPanelWithBackground{
     public WaitingPanel(Image image, boolean flag) {
         super(image, flag);
         this.dimension = GuiConst.DIMENSION;
+        this.setPreferredSize(dimension);
+        this.setMinimumSize(new Dimension(dimension.width/4, dimension.height/4));
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         Font titleFont = Loader.loadFont("default.otf").deriveFont(DIMENSION.height/10f);
-
+        Font titleFontForName = Loader.loadFont("name.otf").deriveFont(DIMENSION.height/10f);
         this.add(Box.createVerticalStrut(DIMENSION.height/5));
         JLabel label = new JLabel("Drivel");
-        label.setFont(titleFont);
+        label.setForeground(Color.white);
+        label.setFont(titleFontForName);
         this.add(label, Component.CENTER_ALIGNMENT);
 
         this.add(Box.createVerticalStrut(DIMENSION.height/40));
         JLabel text = new JLabel("Please wait for the end of the round");
 
-       if (isOver) {
-           sendResults();
-           text.setText("The round is over");
-        }
-
         text.setFont(titleFont);
+        text.setForeground(Color.white);
         this.add(text, Component.CENTER_ALIGNMENT);
 
-//        sendResults();
     }
 
     public void sendResults() {

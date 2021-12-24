@@ -74,7 +74,9 @@ public class RoomJPanel extends JPanel {
 
         bottom.add(button);
         this.add(bottom, BorderLayout.PAGE_END);
-        if(isReady) addReadyButton();
+        if(playerList != null && playerList.size() == 6) {
+            addReadyButton();
+        }
 
         isReady = false;
         this.validate();
@@ -159,3 +161,4 @@ public class RoomJPanel extends JPanel {
         this.add(bottom, BorderLayout.PAGE_END);
     }
 }
+

@@ -17,3 +17,4 @@ public class Car {
     protected Color wheelColor;
     protected Integer price;
 }
+

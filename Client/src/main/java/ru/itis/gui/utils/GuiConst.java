@@ -14,4 +14,5 @@ public class GuiConst {
 
     public static final Dimension DIMENSION = Toolkit.getDefaultToolkit().getScreenSize();
     public static final Border BLACK_BORDER = new LineBorder(Color.BLACK, 3);
- }
+}
+

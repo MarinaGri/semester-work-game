@@ -25,7 +25,7 @@ public class ReadyResponseListener extends AbstractServerEventListener {
 
         Message toClient = new Message(Constants.SUCCESS_READY,
                 playerParser.serializeObject(room.getPlayers()));
-        server.sendMessage(connection, toClient);
+        server.sendMulticastMessage(room, toClient);
 
         if (room.allReady()){
             Message multicastMessage = new Message(Constants.ALL_READY);
@@ -33,3 +33,4 @@ public class ReadyResponseListener extends AbstractServerEventListener {
         }
     }
 }
+

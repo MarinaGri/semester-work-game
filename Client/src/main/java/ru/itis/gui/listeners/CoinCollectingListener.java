@@ -33,3 +33,4 @@ public class CoinCollectingListener implements ActionListener {
         racePanel.repaint();
     }
 }
+

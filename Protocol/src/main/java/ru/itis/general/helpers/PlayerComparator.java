@@ -12,3 +12,4 @@ public class PlayerComparator implements Comparator<Player> {
         return player1.getResult().compareTo(player2.getResult());
     }
 }
+

@@ -160,6 +160,7 @@ public class Server implements IServer{
 
             if (connection.getId() == conn.getId()){
                 handleRemovePlayer(connection.getPlayer());
+
                 iterator.remove();
             }
         }
@@ -168,7 +169,7 @@ public class Server implements IServer{
     protected void handleRemovePlayer(Player player){
         PlayerParser parser = new PlayerParser();
 
-        if (player.inRoom()){
+        if (player != null && player.inRoom()){
             Room room = player.getRoom();
             player.exitRoom();
 
@@ -202,3 +203,4 @@ public class Server implements IServer{
         return availableCars;
     }
 }
+

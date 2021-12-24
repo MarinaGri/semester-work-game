@@ -28,8 +28,6 @@ public class Connection implements Runnable{
 
     protected Player player;
 
-    protected List<IServerEventListener> listeners;
-
     public Connection(IServer server, Socket socket) throws IOException{
         this.id = count++;
         this.server = server;
@@ -49,7 +47,9 @@ public class Connection implements Runnable{
                             message.getType());
                     listener.init(server);
 
-                    listener.handle(this, message);
+                    if (player != null || message.getType() == Constants.ENTRANCE) {
+                        listener.handle(this, message);
+                    }
                 }
             } catch (IllegalProtocolVersionException e) {
                 message = new Message(Constants.ERROR, e.getMessage().getBytes());
@@ -63,3 +63,4 @@ public class Connection implements Runnable{
         }
     }
 }
+

@@ -7,12 +7,11 @@ import ru.itis.gui.listeners.CarCollisionListener;
 import ru.itis.gui.listeners.CoinCollectingListener;
 import ru.itis.gui.listeners.KeyListenerForCar;
 import ru.itis.gui.listeners.MotionListener;
+import ru.itis.gui.utils.ConnectionWrapper;
 
 import javax.swing.*;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +19,9 @@ public class GuiManager {
     private final Window window;
     private MainJPanel mainJPanel;
     private List<Timer> timers;
+    private Long startTime;
+    private Long endTime;
+    private boolean failed;
 
     public GuiManager(Window window) {
         this.window = window;
@@ -63,6 +65,7 @@ public class GuiManager {
         timers.add(new Timer(1, e -> {
             if (collisionListener.hasCollision) {
                 stopTimers();
+                //JOptionPane.showInternalMessageDialog(window.getMainFrame().getContentPane(), "You're loh");
                 showWaitingPanel();
             }
         }));
@@ -73,19 +76,29 @@ public class GuiManager {
     public void startTimers() {
         for (Timer timer : timers) {
             timer.start();
+            startTime = System.currentTimeMillis();
         }
     }
 
     public void stopTimers() {
+        endTime = System.currentTimeMillis();
+        Player player = ConnectionWrapper.getConnection().getPlayer();
+        player.setTime((int) ((endTime - startTime)/1000));
+        failed = true;
+
         for (Timer timer : timers) {
             timer.stop();
         }
     }
 
     public void showRoundEnd() {
-        stopTimers();
+        if (!failed) {
+            stopTimers();
+        }
+        failed = false;
         mainJPanel.getWaitingPanel().setOver(true);
         window.getMainFrame().getContentPane().add(mainJPanel.getWaitingPanel());
+        mainJPanel.getWaitingPanel().sendResults();
     }
 
 
@@ -123,3 +136,4 @@ public class GuiManager {
             mainJPanel.getRaceJPanel().setWheelColor(wheelColor);
     }
 }
+

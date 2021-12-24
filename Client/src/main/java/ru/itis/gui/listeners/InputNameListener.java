@@ -56,3 +56,4 @@ public class InputNameListener implements ActionListener, KeyListener {
         }
     }
 }
+

@@ -16,10 +16,8 @@ public class GameStartedListener extends AbstractServerEventListener {
     public void handle(Connection connection, Message message) {
         try {
             Room room = connection.getPlayer().getRoom();
-            room.setCurrentNumberOfResults(0);
-            room.setCurrentRound(room.getCurrentRound() + 1);
 
-            Thread.sleep(5000);
+            Thread.sleep(40000);
 
             Message toClient = new Message(Constants.ROUND_END);
             server.sendMessage(connection, toClient);
@@ -28,3 +26,4 @@ public class GameStartedListener extends AbstractServerEventListener {
         }
     }
 }
+
