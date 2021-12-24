@@ -9,6 +9,8 @@ import ru.itis.gui.GuiManager;
 
 import ru.itis.protocol.Message;
 import ru.itis.protocol.MessageInputStream;
+
+import javax.swing.*;
 import java.io.IOException;
 
 import static ru.itis.protocol.Constants.*;
