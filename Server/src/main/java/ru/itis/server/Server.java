@@ -117,7 +117,6 @@ public class Server implements IServer{
 
     @Override
     public void sendMessage(Connection connection, Message message){
-        System.out.println("To client: " + message.getType());
         try {
             connection.getOutputStream().writeMessage(message);
         }catch (IOException e){

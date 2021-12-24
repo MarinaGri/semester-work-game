@@ -57,7 +57,7 @@ public class Room {
     }
 
     public boolean allResults(){
-        if (currentNumberOfResults.get() == (players.size() - (currentRound - 1)*FAIL_USERS)){
+        if (currentNumberOfResults.get() == players.size()){
             return true;
         }
         return false;

@@ -69,7 +69,6 @@ public class ResultListener extends AbstractServerEventListener {
 
     private void sendMessageFailedUsers(Room room, List<Player> players){
         Integer indexFailedUser = Room.MAX_PLAYERS - Room.FAIL_USERS*room.getCurrentRound();
-        System.out.println("failed index" + indexFailedUser);
 
         if (players.size() != 1 && players.size() > indexFailedUser){
             Player player = players.get(indexFailedUser);
