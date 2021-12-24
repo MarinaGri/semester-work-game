@@ -7,12 +7,11 @@ import ru.itis.gui.listeners.CarCollisionListener;
 import ru.itis.gui.listeners.CoinCollectingListener;
 import ru.itis.gui.listeners.KeyListenerForCar;
 import ru.itis.gui.listeners.MotionListener;
+import ru.itis.gui.utils.ConnectionWrapper;
 
 import javax.swing.*;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +19,8 @@ public class GuiManager {
     private final Window window;
     private MainJPanel mainJPanel;
     private List<Timer> timers;
+    private Long startTime;
+    private Long endTime;
 
     public GuiManager(Window window) {
         this.window = window;
@@ -74,12 +75,16 @@ public class GuiManager {
     public void startTimers() {
         for (Timer timer : timers) {
             timer.start();
+            startTime = System.currentTimeMillis();
         }
     }
 
     public void stopTimers() {
         for (Timer timer : timers) {
             timer.stop();
+            endTime = System.currentTimeMillis();
+            Player player = ConnectionWrapper.getConnection().getPlayer();
+            player.setTime((int) ((endTime - startTime)/1000));
         }
     }
 

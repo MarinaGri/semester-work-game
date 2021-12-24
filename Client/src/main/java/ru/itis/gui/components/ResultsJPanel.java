@@ -18,6 +18,7 @@ public class ResultsJPanel extends JPanel {
     private MainJPanel mainJPanel;
 
     public ResultsJPanel(MainJPanel mainJPanel, List<Player> players, boolean isFinal) {
+        this.setPreferredSize(DIMENSION);
         this.setBackground(COLOR);
         this.setBorder(BLACK_BORDER);
         this.setLayout(new BorderLayout());

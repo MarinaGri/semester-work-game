@@ -98,7 +98,6 @@ public class MessageListener implements Runnable{
                         break;
                     }
                     case YOU_LOOSER: {
-
                         guiManager.showPaneForLooser();
                     }
                     case ROUND_END: {
