@@ -57,13 +57,12 @@ public class GuiManager {
         window.getMainFrame().pack();
 
         timers = new ArrayList<>();
-        timers.add(new Timer(8, new MotionListener(mainJPanel.getRaceJPanel())));
+        timers.add(new Timer(15, new MotionListener(mainJPanel.getRaceJPanel())));
         CarCollisionListener collisionListener = new CarCollisionListener(mainJPanel.getRaceJPanel());
         timers.add(new Timer(1, collisionListener));
         timers.add(new Timer(1, e -> {
             if (collisionListener.hasCollision) {
                 stopTimers();
-                JOptionPane.showInternalMessageDialog(window.getMainFrame().getContentPane(), "You're loh");
                 showWaitingPanel();
             }
         }));
@@ -83,7 +82,19 @@ public class GuiManager {
         }
     }
 
+    public void showRoundEnd() {
+        stopTimers();
+        mainJPanel.getWaitingPanel().setOver(true);
+        window.getMainFrame().getContentPane().add(mainJPanel.getWaitingPanel());
+    }
+
+
+    public void showPaneForLooser() {
+        JOptionPane.showInternalMessageDialog(window.getMainFrame().getContentPane(), "You're lost");
+    }
+
     public void showWaitingPanel() {
+        mainJPanel.getWaitingPanel().setOver(false);
         window.getMainFrame().getContentPane().remove(mainJPanel.getRaceJPanel());
         window.getMainFrame().getContentPane().add(mainJPanel.getWaitingPanel());
         window.getMainFrame().pack();
