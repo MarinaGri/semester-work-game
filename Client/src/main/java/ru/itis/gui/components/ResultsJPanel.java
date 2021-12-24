@@ -54,7 +54,7 @@ public class ResultsJPanel extends JPanel {
             constraints.gridx++;
 
 
-            JPanel money = new JPanelWithBackground(Loader.loadImg("monetka.png"));
+            JPanel money = new JPanelWithBackground(Loader.loadImg("monetka.png"), false);
             money.setPreferredSize(new Dimension(DIMENSION.height/20, DIMENSION.height/20));
             main.add(money, constraints);
             constraints.gridx++;
@@ -66,7 +66,7 @@ public class ResultsJPanel extends JPanel {
             main.add(moneyLabel, constraints);
             constraints.gridx++;
 
-            JPanel time = new JPanelWithBackground(Loader.loadImg("clock.png"));
+            JPanel time = new JPanelWithBackground(Loader.loadImg("clock.png"), true);
             time.setPreferredSize(new Dimension(DIMENSION.height/20, DIMENSION.height/20));
             main.add(time, constraints);
             constraints.gridx++;

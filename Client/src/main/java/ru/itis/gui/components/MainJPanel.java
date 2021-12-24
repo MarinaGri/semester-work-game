@@ -3,6 +3,7 @@ package ru.itis.gui.components;
 import lombok.Getter;
 import ru.itis.general.entities.Car;
 import ru.itis.general.entities.Player;
+import ru.itis.gui.listeners.KeyListenerForCar;
 import ru.itis.gui.utils.GuiConst;
 import ru.itis.gui.utils.Loader;
 
@@ -22,10 +23,10 @@ public class MainJPanel extends JPanelWithBackground{
     private ResultsJPanel resultsJPanel;
 
     public MainJPanel(Image image) {
-        super(image);
+        super(image, true);
         inputNameJPanel = new InputNameJPanel();
         roomJPanel = new RoomJPanel();
-        raceJPanel = new RaceJPanel(Loader.loadImg(GuiConst.RACE_BACKGROUND));
+        raceJPanel = new RaceJPanel(Loader.loadImg(GuiConst.RACE_BACKGROUND), false);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(Box.createVerticalStrut(DIMENSION.height/10));
         this.add(inputNameJPanel);
