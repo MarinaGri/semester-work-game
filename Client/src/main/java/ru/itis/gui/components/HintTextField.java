@@ -43,3 +43,4 @@ class HintTextField extends JTextField implements FocusListener {
         return showingHint ? "" : super.getText();
     }
 }
+

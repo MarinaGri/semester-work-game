@@ -113,3 +113,4 @@ public class CarShopJPanel extends JPanel {
         ShopDialogFrameShower.showFrame(cars, isEnough, price);
     }
 }
+

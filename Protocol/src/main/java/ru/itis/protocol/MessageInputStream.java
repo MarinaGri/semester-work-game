@@ -22,7 +22,7 @@ public class MessageInputStream extends InputStream {
     //первые 2 байта - цифра до точки в версии протокола и цифра после,
     //чтобы проверить корректность сообщения
     //3 байт - тип
-    //4 - длина тела
+    //4, 5 - длина тела
     public Message readMessage() throws IOException, IllegalProtocolVersionException, IllegalMessageTypeException {
         int firstByte = inputStream.read();
 
@@ -101,3 +101,4 @@ public class MessageInputStream extends InputStream {
         return inputStream.read();
     }
 }
+

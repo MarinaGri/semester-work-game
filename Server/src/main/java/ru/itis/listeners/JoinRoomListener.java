@@ -49,3 +49,4 @@ public class JoinRoomListener extends AbstractServerEventListener {
         server.sendMulticastMessage(joinedRoom, toClient);
     }
 }
+

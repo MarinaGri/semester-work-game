@@ -161,3 +161,4 @@ public class RoomJPanel extends JPanel {
         this.add(bottom, BorderLayout.PAGE_END);
     }
 }
+

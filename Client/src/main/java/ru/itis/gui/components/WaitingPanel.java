@@ -51,8 +51,6 @@ public class WaitingPanel extends JPanelWithBackground{
         Connection connection = ConnectionWrapper.getConnection();
         Player player = connection.getPlayer();
         ObjectParser<Player> parser = new PlayerParser();
-        System.out.println(player.getResult());
-        System.out.println(player.getTime());
         Message message = new Message(Constants.RESULT,
                 parser.serializeObject(player));
         try {

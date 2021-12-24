@@ -27,5 +27,5 @@ public class CarCollisionListener implements ActionListener {
                 hasCollision = true;
         }
     }
-
 }
+

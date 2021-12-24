@@ -26,3 +26,4 @@ public class TextParser implements MessageParser<String>{
         return sb.toString();
     }
 }
+

@@ -129,3 +129,4 @@ public class ResultsJPanel extends JPanel {
         return n/60 + ":" + n%60;
     }
 }
+

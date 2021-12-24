@@ -126,7 +126,6 @@ public class Server implements IServer{
 
     @Override
     public void sendMulticastMessage(Room room, Message message){
-        System.out.println("Broadcast: " + message.getType());
         List<Player> players = room.getPlayers();
 
         for (Connection connection: connections){
@@ -161,6 +160,7 @@ public class Server implements IServer{
 
             if (connection.getId() == conn.getId()){
                 handleRemovePlayer(connection.getPlayer());
+
                 iterator.remove();
             }
         }
@@ -203,3 +203,4 @@ public class Server implements IServer{
         return availableCars;
     }
 }
+

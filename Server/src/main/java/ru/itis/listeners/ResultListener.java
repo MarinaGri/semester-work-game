@@ -10,7 +10,7 @@ import ru.itis.protocol.Constants;
 import ru.itis.protocol.Message;
 import ru.itis.server.Connection;
 
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,14 +32,13 @@ public class ResultListener extends AbstractServerEventListener {
         player.setTime(player.getTime() + result.getTime());
         player.setResult(player.getResult() + result.getResult());
 
-        int res = room.getCurrentNumberOfResults().incrementAndGet();
-        System.out.println("number of results" + res);
+        int count = room.getCurrentNumberOfResults().incrementAndGet();
 
-        if (room.allResults(res)){
-            System.out.println(room.getPlayers());
+        if (room.allResults(count)){
             List<Player> players = room.getPlayers().stream()
                     .sorted(new PlayerComparator())
                     .collect(Collectors.toList());
+            Collections.reverse(players);
 
             Message toClient = new Message(Constants.GAME_OVER,
                     playerParser.serializeObject(players));
@@ -51,9 +50,7 @@ public class ResultListener extends AbstractServerEventListener {
             try{
                 Thread.sleep(10000);
             }catch (InterruptedException e){
-
             }finally {
-                System.out.println("current round" + room.getCurrentRound());
                 if (players.size() == 1 || room.getCurrentRound() == 3){
                     toClient = new Message(Constants.FINAL_GAME_OVER,
                             playerParser.serializeObject(players));
@@ -70,7 +67,6 @@ public class ResultListener extends AbstractServerEventListener {
 
     private void sendMessageFailedUsers(Room room, List<Player> players){
         Integer indexFailedUser = Room.MAX_PLAYERS - Room.FAIL_USERS*room.getCurrentRound();
-        System.out.println("Index failed: " + indexFailedUser);
 
         if ((indexFailedUser != 0) && (players.size() != 1) && (players.size() > indexFailedUser)){
             Player player = players.get(indexFailedUser);
@@ -87,3 +83,4 @@ public class ResultListener extends AbstractServerEventListener {
         }
     }
 }
+

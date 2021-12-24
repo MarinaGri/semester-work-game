@@ -136,3 +136,4 @@ public class GuiManager {
             mainJPanel.getRaceJPanel().setWheelColor(wheelColor);
     }
 }
+

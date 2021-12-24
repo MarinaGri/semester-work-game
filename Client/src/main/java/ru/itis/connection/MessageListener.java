@@ -38,7 +38,6 @@ public class MessageListener implements Runnable{
         Message message;
         try {
             while ((message = inputStream.readMessage()) != null){
-                System.out.println("From server: " + message.getType());
                 switch (message.getType()){
                     case INVALID_NICKNAME:{
                         guiManager.showInvalidNameTip();
@@ -66,7 +65,6 @@ public class MessageListener implements Runnable{
                         break;
                     }
                     case GAME_OVER:{
-                        System.out.println(message.toString());
                         guiManager.showRoundResults(playerParser.deserializeObjects(message.getData()));
                         break;
                     }
@@ -111,3 +109,4 @@ public class MessageListener implements Runnable{
         }
     }
 }
+

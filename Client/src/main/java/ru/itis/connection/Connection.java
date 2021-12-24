@@ -35,7 +35,6 @@ public class Connection {
 
     public void sendMessage(Message message) throws IOException {
         outputStream.writeMessage(message);
-        System.out.println("To server: " + message.getType());
     }
 
     public void closeConnection(){
@@ -44,3 +43,4 @@ public class Connection {
         } catch (IOException ignored) {}
     }
 }
+

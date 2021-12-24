@@ -47,7 +47,6 @@ public class Connection implements Runnable{
                             message.getType());
                     listener.init(server);
 
-                    System.out.println("From client: " + message.getType());
                     if (player != null || message.getType() == Constants.ENTRANCE) {
                         listener.handle(this, message);
                     }
@@ -64,3 +63,4 @@ public class Connection implements Runnable{
         }
     }
 }
+

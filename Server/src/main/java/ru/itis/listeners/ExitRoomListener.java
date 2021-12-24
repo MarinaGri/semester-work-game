@@ -30,3 +30,4 @@ public class ExitRoomListener extends AbstractServerEventListener {
         server.sendMulticastMessage(playerRoom, toClient);
     }
 }
+

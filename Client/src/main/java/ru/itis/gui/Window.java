@@ -34,3 +34,4 @@ public class Window {
         mainPanel.getInputNameJPanel().getComponent(4).requestFocusInWindow();
     }
 }
+

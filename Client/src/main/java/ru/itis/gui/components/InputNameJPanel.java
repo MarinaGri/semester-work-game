@@ -76,3 +76,4 @@ public class InputNameJPanel extends JPanel {
         this.repaint();
     }
 }
+

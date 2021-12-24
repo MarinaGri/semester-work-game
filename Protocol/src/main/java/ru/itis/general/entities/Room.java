@@ -66,6 +66,5 @@ public class Room {
     public List<Player> getPlayers() {
         return players;
     }
-
-
 }
+
