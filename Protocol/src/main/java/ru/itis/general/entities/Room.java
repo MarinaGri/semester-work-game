@@ -56,8 +56,8 @@ public class Room {
         return true;
     }
 
-    public boolean allResults(){
-        if (currentNumberOfResults.get() == players.size()){
+    public boolean allResults(int numberOfResults){
+        if (numberOfResults == players.size()){
             return true;
         }
         return false;

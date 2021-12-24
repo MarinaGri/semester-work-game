@@ -66,6 +66,7 @@ public class MessageListener implements Runnable{
                         break;
                     }
                     case GAME_OVER:{
+                        System.out.println(message.toString());
                         guiManager.showRoundResults(playerParser.deserializeObjects(message.getData()));
                         break;
                     }

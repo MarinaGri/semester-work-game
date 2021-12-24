@@ -21,6 +21,7 @@ public class GuiManager {
     private List<Timer> timers;
     private Long startTime;
     private Long endTime;
+    private boolean failed;
 
     public GuiManager(Window window) {
         this.window = window;
@@ -80,16 +81,21 @@ public class GuiManager {
     }
 
     public void stopTimers() {
+        endTime = System.currentTimeMillis();
+        Player player = ConnectionWrapper.getConnection().getPlayer();
+        player.setTime((int) ((endTime - startTime)/1000));
+        failed = true;
+
         for (Timer timer : timers) {
             timer.stop();
-            endTime = System.currentTimeMillis();
-            Player player = ConnectionWrapper.getConnection().getPlayer();
-            player.setTime((int) ((endTime - startTime)/1000));
         }
     }
 
     public void showRoundEnd() {
-        stopTimers();
+        if (!failed) {
+            stopTimers();
+        }
+        failed = false;
         mainJPanel.getWaitingPanel().setOver(true);
         window.getMainFrame().getContentPane().add(mainJPanel.getWaitingPanel());
         mainJPanel.getWaitingPanel().sendResults();

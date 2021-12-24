@@ -32,9 +32,10 @@ public class ResultListener extends AbstractServerEventListener {
         player.setTime(player.getTime() + result.getTime());
         player.setResult(player.getResult() + result.getResult());
 
-        System.out.println("number of results" + room.getCurrentNumberOfResults().incrementAndGet());
+        int res = room.getCurrentNumberOfResults().incrementAndGet();
+        System.out.println("number of results" + res);
 
-        if (room.allResults()){
+        if (room.allResults(res)){
             System.out.println(room.getPlayers());
             List<Player> players = room.getPlayers().stream()
                     .sorted(new PlayerComparator())
@@ -69,8 +70,9 @@ public class ResultListener extends AbstractServerEventListener {
 
     private void sendMessageFailedUsers(Room room, List<Player> players){
         Integer indexFailedUser = Room.MAX_PLAYERS - Room.FAIL_USERS*room.getCurrentRound();
+        System.out.println("Index failed: " + indexFailedUser);
 
-        if (players.size() != 1 && players.size() > indexFailedUser){
+        if ((indexFailedUser != 0) && (players.size() != 1) && (players.size() > indexFailedUser)){
             Player player = players.get(indexFailedUser);
 
             Message toClient = new Message(Constants.YOU_LOOSER);
