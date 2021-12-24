@@ -36,7 +36,7 @@ public class RaceJPanel extends JPanelWithBackground {
 
     public RaceJPanel(Image image, boolean flag) {
         super(image, flag);
-        dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        dimension = GuiConst.DIMENSION;
         this.setBackground(GuiConst.COLOR);
         Dimension thisSize = new Dimension(dimension.width/4, dimension.height/4);
         this.setPreferredSize(dimension);

@@ -23,7 +23,11 @@ public class Connection {
             this.socket = new Socket(address, port);
             outputStream = new MessageOutputStream(socket.getOutputStream());
             inputStream = new MessageInputStream(socket.getInputStream());
-            player = new Player();
+            player = Player.builder()
+                    .money(0)
+                    .result(0)
+                    .time(0)
+                    .build();
         } catch (IOException ex) {
             throw new ConnectionLostException("Failed to establish connection", ex);
         }

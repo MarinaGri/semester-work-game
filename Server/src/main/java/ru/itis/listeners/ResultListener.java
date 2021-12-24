@@ -32,9 +32,10 @@ public class ResultListener extends AbstractServerEventListener {
         player.setTime(player.getTime() + result.getTime());
         player.setResult(player.getResult() + result.getResult());
 
-        room.setCurrentNumberOfResults(room.getCurrentNumberOfResults() + 1);
+        System.out.println("number of results" + room.getCurrentNumberOfResults().incrementAndGet());
 
         if (room.allResults()){
+            System.out.println(room.getPlayers());
             List<Player> players = room.getPlayers().stream()
                     .sorted(new PlayerComparator())
                     .collect(Collectors.toList());
@@ -44,13 +45,14 @@ public class ResultListener extends AbstractServerEventListener {
             server.sendMulticastMessage(room, toClient);
 
             sendMessageFailedUsers(room, players);
-            room.setCurrentNumberOfResults(0);
+            room.getCurrentNumberOfResults().set(0);
 
             try{
-                Thread.sleep(5000);
+                Thread.sleep(10000);
             }catch (InterruptedException e){
 
             }finally {
+                System.out.println("current round" + room.getCurrentRound());
                 if (players.size() == 1 || room.getCurrentRound() == 3){
                     toClient = new Message(Constants.FINAL_GAME_OVER,
                             playerParser.serializeObject(players));
@@ -59,12 +61,15 @@ public class ResultListener extends AbstractServerEventListener {
                     toClient = new Message(Constants.ALL_READY);
                     server.sendMulticastMessage(room, toClient);
                 }
+
+                room.setCurrentRound(room.getCurrentRound() + 1);
             }
         }
     }
 
     private void sendMessageFailedUsers(Room room, List<Player> players){
         Integer indexFailedUser = Room.MAX_PLAYERS - Room.FAIL_USERS*room.getCurrentRound();
+        System.out.println("failed index" + indexFailedUser);
 
         if (players.size() != 1 && players.size() > indexFailedUser){
             Player player = players.get(indexFailedUser);

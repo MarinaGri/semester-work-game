@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 @Setter
@@ -14,14 +15,14 @@ public class Room {
     protected boolean started;
 
     protected List<Player> players;
-    protected int currentNumberOfResults;
+    protected AtomicInteger currentNumberOfResults;
     protected int currentRound;
 
     public Room(){
         started = true;
         players = new ArrayList<>();
-        currentNumberOfResults = 0;
-        currentRound = 0;
+        currentNumberOfResults = new AtomicInteger(0);
+        currentRound = 1;
     }
 
     public boolean addPlayer(Player player){
@@ -56,7 +57,7 @@ public class Room {
     }
 
     public boolean allResults(){
-        if (currentNumberOfResults == players.size()){
+        if (currentNumberOfResults.get() == (players.size() - (currentRound - 1)*FAIL_USERS)){
             return true;
         }
         return false;

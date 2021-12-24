@@ -38,6 +38,7 @@ public class MessageListener implements Runnable{
         Message message;
         try {
             while ((message = inputStream.readMessage()) != null){
+                System.out.println("From server: " + message.getType());
                 switch (message.getType()){
                     case INVALID_NICKNAME:{
                         guiManager.showInvalidNameTip();
@@ -64,7 +65,7 @@ public class MessageListener implements Runnable{
                         guiManager.showCarShop(connection.getPlayer(), carParser.deserializeObjects(message.getData()));
                         break;
                     }
-                    case RESULTS:{
+                    case GAME_OVER:{
                         guiManager.showRoundResults(playerParser.deserializeObjects(message.getData()));
                         break;
                     }
@@ -89,11 +90,19 @@ public class MessageListener implements Runnable{
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {
-
                             JOptionPane.showInternalMessageDialog(null, "Не удалось запустить игру");
                         }
+                        connection.sendMessage(new Message(GAME_STARTED));
                         guiManager.showRace(connection.getPlayer());
                         guiManager.startTimers();
+                        break;
+                    }
+                    case YOU_LOOSER: {
+
+                        guiManager.showPaneForLooser();
+                    }
+                    case ROUND_END: {
+                        guiManager.showRoundEnd();
                     }
                 }
             }

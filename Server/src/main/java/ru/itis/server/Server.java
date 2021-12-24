@@ -117,6 +117,7 @@ public class Server implements IServer{
 
     @Override
     public void sendMessage(Connection connection, Message message){
+        System.out.println("To client: " + message.getType());
         try {
             connection.getOutputStream().writeMessage(message);
         }catch (IOException e){
@@ -126,6 +127,7 @@ public class Server implements IServer{
 
     @Override
     public void sendMulticastMessage(Room room, Message message){
+        System.out.println("Broadcast: " + message.getType());
         List<Player> players = room.getPlayers();
 
         for (Connection connection: connections){
