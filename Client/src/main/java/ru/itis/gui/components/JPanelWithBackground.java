@@ -16,11 +16,11 @@ public class JPanelWithBackground extends JPanel {
     }
 
     public void paintComponent(Graphics g) {
+
         if (isFlag()) {
             g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
         } else {
             g.drawImage(backgroundImage, this.getWidth()/4, 0, this.getWidth()/2, this.getHeight(), this);
-
         }
     }
 }

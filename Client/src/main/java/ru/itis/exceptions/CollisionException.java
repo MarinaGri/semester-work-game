@@ -1,6 +1,6 @@
 package ru.itis.exceptions;
 
-public class CollisionException extends RuntimeException{
+public class CollisionException extends Exception{
 
     public CollisionException() {
         super();
