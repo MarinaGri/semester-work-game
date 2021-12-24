@@ -3,6 +3,7 @@ package ru.itis.listeners;
 import ru.itis.general.entities.Player;
 import ru.itis.general.entities.Room;
 import ru.itis.general.helpers.ObjectParser;
+import ru.itis.general.helpers.PlayerComparator;
 import ru.itis.general.helpers.PlayerParser;
 import ru.itis.listeners.general.AbstractServerEventListener;
 import ru.itis.protocol.Constants;
@@ -35,7 +36,7 @@ public class ResultListener extends AbstractServerEventListener {
 
         if (room.allResults()){
             List<Player> players = room.getPlayers().stream()
-                    .sorted(Comparator.comparingInt(Player::getResult))
+                    .sorted(new PlayerComparator())
                     .collect(Collectors.toList());
 
             Message toClient = new Message(Constants.GAME_OVER,

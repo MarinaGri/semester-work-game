@@ -168,7 +168,7 @@ public class Server implements IServer{
     protected void handleRemovePlayer(Player player){
         PlayerParser parser = new PlayerParser();
 
-        if (player.inRoom()){
+        if (player != null && player.inRoom()){
             Room room = player.getRoom();
             player.exitRoom();
 

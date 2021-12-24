@@ -31,6 +31,7 @@ public class Connection {
 
     public void sendMessage(Message message) throws IOException {
         outputStream.writeMessage(message);
+        System.out.println(message.getType());
     }
 
     public void closeConnection(){

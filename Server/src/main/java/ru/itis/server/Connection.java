@@ -47,7 +47,9 @@ public class Connection implements Runnable{
                             message.getType());
                     listener.init(server);
 
-                    listener.handle(this, message);
+                    if (player != null || message.getType() == Constants.ENTRANCE) {
+                        listener.handle(this, message);
+                    }
                 }
             } catch (IllegalProtocolVersionException e) {
                 message = new Message(Constants.ERROR, e.getMessage().getBytes());
