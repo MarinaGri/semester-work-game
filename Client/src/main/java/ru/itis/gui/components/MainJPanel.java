@@ -21,12 +21,14 @@ public class MainJPanel extends JPanelWithBackground{
     private CarShopJPanel carShopJPanel;
     private RaceJPanel raceJPanel;
     private ResultsJPanel resultsJPanel;
+    private WaitingPanel waitingPanel;
 
     public MainJPanel(Image image) {
         super(image, true);
         inputNameJPanel = new InputNameJPanel();
         roomJPanel = new RoomJPanel();
         raceJPanel = new RaceJPanel(Loader.loadImg(GuiConst.RACE_BACKGROUND), false);
+        waitingPanel = new WaitingPanel(Loader.loadImg("main_background.jpg"), true);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(Box.createVerticalStrut(DIMENSION.height/10));
         this.add(inputNameJPanel);
@@ -60,11 +62,4 @@ public class MainJPanel extends JPanelWithBackground{
         this.repaint();
     }
 
-    public void showRace() {
-        this.remove(1);
-        this.add(raceJPanel, 1);
-
-        this.validate();
-        this.repaint();
-    }
 }
