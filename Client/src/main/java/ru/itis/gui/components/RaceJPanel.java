@@ -5,7 +5,6 @@ import java.util.Random;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.itis.gui.listeners.KeyListenerForCar;
 import ru.itis.gui.utils.GuiConst;
 
 @Getter
@@ -28,6 +27,8 @@ public class RaceJPanel extends JPanelWithBackground {
     private int xForTree;
     private int yForTree;
     private Graphics2D car;
+    private Color carColor = Color.gray;
+    private Color wheelColor = Color.black;
     private Graphics2D carWheel;
     private Graphics2D coin;
     private Dimension dimension;
@@ -45,7 +46,7 @@ public class RaceJPanel extends JPanelWithBackground {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         carWheel = (Graphics2D) g.create();
-        carWheel.setColor(Color.darkGray);
+        carWheel.setColor(wheelColor);
 
         heightCar = getHeight()/4;
         widthCar = getWidth()/12;
@@ -57,13 +58,13 @@ public class RaceJPanel extends JPanelWithBackground {
         carWheel.fillOval(getWidth() / 2 + offsetX, getHeight() - heightCar +  offsetY + heightWheel * (heightCar / heightWheel), widthWheel, heightWheel);//левое нижнее);
         carWheel.fillOval(getWidth() / 2 + offsetX + widthCar + widthWheel, getHeight()  + offsetY - heightCar + heightWheel * (heightCar / heightWheel), widthWheel, heightWheel);//правое нижнее);
         carWheel.fillOval(getWidth() / 2 + offsetX + widthCar + widthWheel, getHeight()  + offsetY - heightCar, widthWheel, heightWheel);//правое верхнее);
-//        carWheel.dispose();
+        carWheel.dispose();
 
         xForCar = getWidth()/2 + widthWheel + offsetX;
         yForCar = getHeight() - getHeight()/4 + offsetY;
 
         car = (Graphics2D) g.create();
-        car.setColor(Color.black);
+        car.setColor(carColor);
         car.drawRect(xForCar, yForCar, widthCar, heightCar);
         car.fillRect(xForCar, yForCar, widthCar, heightCar);
         car.dispose();

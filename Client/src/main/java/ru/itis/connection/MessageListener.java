@@ -80,6 +80,7 @@ public class MessageListener implements Runnable{
                         Car car = carParser.deserializeObject(message.getData());
                         player.setMoney(player.getMoney() - car.getPrice());
                         player.setCar(car);
+                        guiManager.changeCarColor(player.getCar().getCarColor(), player.getCar().getWheelColor());
                         guiManager.showCarShop(player, null);
                         break;
                     }
@@ -87,9 +88,9 @@ public class MessageListener implements Runnable{
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {
+
                             JOptionPane.showInternalMessageDialog(null, "Не удалось запустить игру");
                         }
-
                         guiManager.showRace(connection.getPlayer());
                         guiManager.startTimers();
                     }
