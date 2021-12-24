@@ -32,9 +32,9 @@ public class WaitingPanel extends JPanelWithBackground{
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         Font titleFont = Loader.loadFont("default.otf").deriveFont(DIMENSION.height/10f);
         Font titleFontForName = Loader.loadFont("name.otf").deriveFont(DIMENSION.height/10f);
-
         this.add(Box.createVerticalStrut(DIMENSION.height/5));
         JLabel label = new JLabel("Drivel");
+        label.setForeground(Color.white);
         label.setFont(titleFontForName);
         this.add(label, Component.CENTER_ALIGNMENT);
 
@@ -42,6 +42,7 @@ public class WaitingPanel extends JPanelWithBackground{
         JLabel text = new JLabel("Please wait for the end of the round");
 
         text.setFont(titleFont);
+        text.setForeground(Color.white);
         this.add(text, Component.CENTER_ALIGNMENT);
 
     }
